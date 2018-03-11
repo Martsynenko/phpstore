@@ -23,7 +23,3 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
-
-    App\Admin\Controller:
-        resource: '../src/Admin\Controller'
-        tags: ['controller.service_arguments']

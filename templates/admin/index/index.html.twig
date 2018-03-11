@@ -1,0 +1,13 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block content %}
+<div class="site-statistic">
+    <div class="chart-container">
+        <canvas id="phpstoreChart"></canvas>
+        <div class="hidden title-diagram">{{ titleDiagram }}</div>
+        <div class="hidden data-diagram">{{ dataDiagram }}</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}<script type="text/javascript" src="{{ asset('js/index/index.js') }}"></script>{% endblock %}

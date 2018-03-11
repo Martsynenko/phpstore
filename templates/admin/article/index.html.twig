@@ -1,0 +1,90 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block css %}
+    <!-- NICE SELECTOR -->
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/nice-select.css') }}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="admin-article-content">
+        <div class="article-head-block">
+            <form class="form-edit-article">
+                <input type="hidden" class="article-id" {% if article is defined %} value="{{ article.id }}" {% endif %}/>
+                <div class="article-head-block-form">
+                    <h3><i class="fas fa-cogs"></i> SEO Head block</h3>
+                    <ul>
+                        <li class="li-block">
+                            <p><label>Title</label></p>
+                            <input type="text" class="seo-title ifield empty-input" placeholder="Type title here"
+                                {% if article is defined %} value="{{ article.seoTitle }}" {% endif %}
+                            />
+                        </li>
+                        <li class="li-block">
+                            <p><label>Description</label></p>
+                            <input type="text" class="seo-description ifield" placeholder="Type title here"
+                                {% if article is defined %} value="{{ article.seoDescription }}" {% endif %}
+                            />
+                        </li>
+                        <li class="li-block">
+                            <p><label>Keywords</label></p>
+                            <input type="text" class="seo-keywords ifield" placeholder="Type title here"
+                                {% if article is defined %} value="{{ article.seoKeywords }}" {% endif %}
+                            />
+                        </li>
+                        <li class="li-block">
+                            <p><label>Status</label></p>
+                            <select class="nice-select wide status-article">
+                                <option value="in progress"
+                                     {% if article is defined %}
+                                         {% if article.status == 'in progress' %} selected {% endif %}
+                                     {% endif %}
+                                >In progress</option>
+                                <option value="published"
+                                    {% if article is defined %}
+                                        {% if article.status == 'published' %} selected {% endif %}
+                                    {% endif %}
+                                >Published</option>
+                            </select>
+                        </li>
+                    </ul>
+            {#</form>#}
+                </div>
+            <div class="article-front-block">
+                <h3><i class="fas fa-tv"></i> Display Front block</h3>
+            {#<form>#}
+                <ul>
+                    <li class="li-block">
+                        <p><label>Title Article</label></p>
+                        <input type="text" placeholder="Type Title Article" class="input-title-article ifield"
+                            {% if article is defined %} value="{{ article.title }}" {% endif %}
+                        />
+                    </li>
+                    <li class="li-block">
+                        <p><label>Text Article</label></p>
+                        <textarea class="wsy-editor textarea-text-article">
+                            {% if article is defined %} {{ article.text }} {% endif %}
+                        </textarea>
+                    </li>
+                    <li class="li-block">
+                        <p><label>Tags Article</label></p>
+                        <input type="text" placeholder="Type Tags Article" class="input-tags-article ifield"
+                            {% if article is defined %} value="{{ article.tags }}" {% endif %}
+                        />
+                    </li>
+                    <li class="li-block">
+                        <button class="btn-article-save disabled">Save</button>
+                        <a href="#preview-article" class="btn-article-preview">Preview</a>
+                    </li>
+                </ul>
+            </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ asset('libs/jquery.magnific-popup.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('libs/jquery.nice-select.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/article/article.js') }}"></script>
+{% endblock %}

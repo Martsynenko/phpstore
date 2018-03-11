@@ -1,0 +1,58 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block content %}
+    <div class="btn-new-article">
+        <a href="{{ path('admin-article') }}">Новая публикация</a>
+    </div>
+    <div class="admin-articles-content">
+        <table>
+            <thead>
+            <tr>
+                <td class="table-articles-td-id">
+                    <span>ID</span>
+                </td>
+                <td class="table-articles-td-article">
+                    <span>Публикация</span>
+                </td>
+                <td class="table-article-td-date">
+                    <span>Опубликовано</span>
+                </td>
+                <td class="table-articles-td-visits">
+                    <span>Просмотров</span>
+                </td>
+                <td class="table-articles-td-status">
+                    <span>Статус</span>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for article in articles %}
+            <tr>
+                <td>
+                    <span>{{ article.id }}</span>
+                </td>
+                <td>
+                    <span><a href="/article/{{ article.id }}">{{ article.title }}</a></span>
+                </td>
+                <td class="table-article-td-date">
+                    <span>{{ article.date }}</span>
+                </td>
+                <td class="table-articles-td-visits">
+                    <span>{{ article.visits }}</span>
+                </td>
+                <td>
+                    <span class="{% if article.status == 'published' %} status-article-published {% else %} status-article-in-progress{% endif %}">
+                    {% if article.status == 'published' %}
+                        <i class="fas fa-check-circle"></i>
+                    {% else %}
+                        <i class="fas fa-pen-square"></i>
+                    {% endif %}
+                        {{ article.status|capitalize }}
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

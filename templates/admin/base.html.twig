@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>{% block title %}PhpStore Admin Area{% endblock %}</title>
+    <meta name="description" content="">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    {# BOOTSTRAP #}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    {# TEXT EDITOR + FONTAWESOME#}
+    <!-- Include external CSS. -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+    <!-- Include Editor style. -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.5/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.5/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}"/>
+
+    {# JQUERY #}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    {% block css %}{% endblock %}
+
+</head>
+
+<body {% block classbody %}{% endblock %}>
+
+{% block header %}
+    <header>
+        <div class="logo"><h6>PhpStore</h6></div>
+        <div class="logout"><a href="/logout" class="btn-logout">Выйти</a></div>
+        <div class="clearfix"></div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <div id="admin-wrapp">
+        <div class="row">
+            <div class="col-md-3">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin-home') }}" class="btn-nav-active">Главная</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin-articles') }}">Публикации</a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn-nav-disable">Книги</a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn-nav-disable">Видеуроки</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-9">
+                <div class="admin-content">
+
+                    {% block content %}
+                    {% endblock %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <footer>
+        <div class="footer-text">
+            <span>Admin Area</span><p> &copy; PhpStore 2018 All Rights Reserved</p>
+        </div>
+    </footer>
+{% endblock %}
+
+
+<div class="hidden">
+    <div id="preview-article">
+        <div class="header-preview">
+            <h6>PhpStore</h6>
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="content-preview-article">
+            <h1></h1>
+            <p class="breadcrumb-preview-article">Опубликовано:<span>20.02.2018</span></p>
+            <p class="breadcrumb-preview-article"><i class="fas fa-eye"></i><span>1</span></p>
+            <p class="preview-article-text"></p>
+            <div class="preview-article-tags">
+                <span class="preview-article-tags-title">Теги: </span>
+                {# <span class="tag-article"></span> in article.js#}
+            </div>
+        </div>
+        <div class="footer-preview">
+            <p>&copy; PhpStore 2018 All Rights Reserved</p>
+        </div>
+    </div>
+
+</div>
+
+<div id="popup-success-notice"><!-- Сaмo oкнo -->
+    <p class="popup-success-header"><i class="far fa-check-circle"></i> Success</p>
+    <p class="popup-success-message">Изменения успешно сохранены!</p>
+    <div class="popup-success-btn">
+        <a href="#">Назад к редактированию</a>
+        <a href="#">Вернуться ко всем статьям</a>
+    </div>
+</div>
+<div id="overlay"></div><!-- Пoдлoжкa -->
+
+
+{# TEXT EDITOR + JQUERY + FONTAWESOME #}
+<!-- Include external JS libs. -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+<!-- Include Editor JS files. -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.5/js/froala_editor.pkgd.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+{# PRELOADER #}
+<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@1.6.0/src/loadingoverlay.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@1.6.0/extras/loadingoverlay_progress/loadingoverlay_progress.min.js"></script>
+
+{# DIAGRAMM #}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
+{% block javascript %}<script type="text/javascript" src="{{ asset('js/common.js') }}"></script>{% endblock %}
+</body>
+</html>
