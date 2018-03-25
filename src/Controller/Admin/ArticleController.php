@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class ArticleController extends Controller
 {
     /**
-     * @Route("wde-master/admin/article/{id}", requirements={"id" = "\d+"}, name="admin-article")
+     * @Route("/wde-master/admin/article/{id}", requirements={"id"="\d+"}, name="admin-article")
      * @param int $id
      * @param SessionInterface $session
      * @param AuthValidationHelper $authValidationHelper
@@ -32,25 +32,29 @@ class ArticleController extends Controller
         $sessionKey = $session->get(LoginController::SESSION_SESSION_KEY);
         $userId = $session->get(LoginController::SESSION_USER_ID);
 
-        $dataArticle = null;
-
         if (!$authValidationHelper->checkAuthUser($userId, $sessionKey)) {
             return $this->redirectToRoute('admin-login');
         }
 
+        /** @var PhpArticles $article */
         $article = $phpArticlesRepository->find($id);
 
         if ($article) {
+            $textArticle = htmlspecialchars_decode($article->getText());
+            $article->setText($textArticle);
+
             $dataArticle = ['article' => $article];
+
+            return $this->render('admin/article/index.html.twig', $dataArticle);
+        } elseif ($id == 0) {
+            return $this->render('admin/article/index.html.twig', []);
         }
 
-        return $this->render('admin/article/index.html.twig', [
-            $dataArticle
-        ]);
+        return $this->render('admin/article/wrongArticle.html.twig');
     }
 
     /**
-     * @Route("/wde-master/admin/article/save/1", name="admin-articleSave")
+     * @Route("/wde-master/admin/article/save", name="admin-articleSave")
      * @param Request $request
      * @return JsonResponse
      */
@@ -99,6 +103,30 @@ class ArticleController extends Controller
             $entityManager->persist($articleVisitEntity);
             $entityManager->flush();
         }
+
+        $articleId = $articleEntity->getId();
+
+        return new JsonResponse($articleId);
+    }
+
+    /**
+     * @Route("/wde-master/admin/article/delete", name="admin-articleDelete")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function deleteArticle(
+        Request $request
+    )
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $dataArticle = $request->request->all();
+
+        $articleId = $dataArticle['articleId'];
+
+        $articleEntity = $entityManager->getRepository(PhpArticles::class)->find($articleId);
+
+        $entityManager->remove($articleEntity);
+        $entityManager->flush();
 
         return new JsonResponse(1);
     }

@@ -27,6 +27,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.5/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.5/css/froala_style.min.css" rel="stylesheet" type="text/css" />
 
+    {# CONFIRM PLUGIN #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}"/>
 
     {# JQUERY #}
@@ -41,7 +44,7 @@
 {% block header %}
     <header>
         <div class="logo"><h6>PhpStore</h6></div>
-        <div class="logout"><a href="/logout" class="btn-logout">Выйти</a></div>
+        <div class="logout"><a href="{{ path('admin-logout') }}" class="btn-logout">Выйти</a></div>
         <div class="clearfix"></div>
     </header>
 {% endblock %}
@@ -115,8 +118,8 @@
     <p class="popup-success-header"><i class="far fa-check-circle"></i> Success</p>
     <p class="popup-success-message">Изменения успешно сохранены!</p>
     <div class="popup-success-btn">
-        <a href="#">Назад к редактированию</a>
-        <a href="#">Вернуться ко всем статьям</a>
+        <a href="#" class="btn-close-modal">Назад к редактированию</a>
+        <a href="{{ path('admin-articles') }}">Вернуться ко всем статьям</a>
     </div>
 </div>
 <div id="overlay"></div><!-- Пoдлoжкa -->
@@ -136,6 +139,9 @@
 
 {# DIAGRAMM #}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
+{# CONFIRM PLUGIN #}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
 
 {% block javascript %}<script type="text/javascript" src="{{ asset('js/common.js') }}"></script>{% endblock %}
 </body>
