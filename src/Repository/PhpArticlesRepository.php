@@ -30,4 +30,24 @@ class PhpArticlesRepository extends ServiceEntityRepository
             ->getQuery()
             ->getArrayResult();
     }
+
+    public function getCountArticles()
+    {
+        return $this->createQueryBuilder('pa')
+            ->select('count(pa.id) as countArticles')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    public function getArticles($limit, $offset = 0)
+    {
+        return $this->createQueryBuilder('pa')
+            ->select()
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getArrayResult();
+
+
+    }
 }

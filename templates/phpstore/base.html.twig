@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>{% block title %} PhpStore | Knowledge Storage {% endblock %}</title>
+    <meta name="description" content="{% block description %}{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}{% endblock %}"/>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/fontawesome-all.min.css') }}"/>
+
+    <link rel="stylesheet" href="{{ asset('css/main.style.css') }}"/>
+
+</head>
+
+<body>
+
+<div id="wrapp">
+    <header>
+        <div class="container">
+            <div class="row header-row">
+                <div class="col-md-12">
+                    <div class="logo">
+                        <a href="/"><h2>PhpStore</h2></a>
+                    </div>
+                    {#<div class="btn-search">#}
+                        {#<a href="#search-popup" class="btn-search-popup"><i class="fa fa-search" aria-hidden="true"></i></a>#}
+                    {#</div>#}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        {% block top_breadcrumb %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="top-bread-crumb">
+                            <div class="top-pagination-bread-crumb">
+                                {#{% for item in breadcrumbs %}#}
+                                    {#<span>{{ item }}</span>#}
+                                {#{% endfor %}#}
+                                {#<span>Главная</span><i class="fas fa-chevron-right"></i><span>Публикации</span>#}
+                            </div>
+                            {% if not countArticles is empty %}
+                            <div class="total-articles-bread-crumb">
+                                <p>Всего <span>{{ countArticles.count }}</span> {{ countArticles.title }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+
+        {% block content %}
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="home-content-articles">
+                            {% for article in articles %}
+                            <div class="home-article-item col-md-9 col-sm-6">
+                                <a href="#"><h2>Unit тестирование. PHP Unit. Тестирование встроенных методов php</h2></a>
+                                <div class="home-article-item-bread-crumb">
+                                    <i class="fas fa-eye"></i><span>212</span>
+                                    <i class="far fa-clock"></i><span>2001-12-32</span>
+                                </div>
+                                <p>По крайней мере, о html5-autofocus Я знаю, что большинство мобильных браузеров (помимо android-firefox) игнорируют атрибут автофокуса. Похоже, это хорошая идея относительно удобства использования. В большинстве случаев вы не хотите закрывать половину экрана / веб-страницы виртуальной клавиатурой в момент загрузки страницы...
+                                    <a href="#">Подробнее</a> </p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="container">
+                <div class="pagination">
+                    <a href="#" class="btn-active-pagination">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                </div>
+            </div>
+        {% endblock %}
+
+        {#<div class="container">#}
+            {#<div class="row">#}
+                {#<div class="col-md-12">#}
+                    {#<div class="position-elements-bread-crumb">#}
+                        {#<div class="btn-position-elements-bread-crumb">#}
+                            {#<i class="fa fa-th-large fa-th-large-home-articles" aria-hidden="true"></i>#}
+                            {#<i class="fa fa-align-justify fa-align-justify-home-articles" aria-hidden="true"></i>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+
+    </main>
+</div>
+
+<footer>
+    <p> &copy; PhpStore 2018 All Rights Reserved</p>
+</footer>
+
+
+{#<div class="hidden">#}
+    {#<div id="search-popup">#}
+        {#<form>#}
+            {#<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>#}
+            {#<input type="text" class="input-search" placeholder="Введите ключевые слова поиска..."/>#}
+        {#</form>#}
+        {#<div class="search-popup-result">#}
+            {#<p class="popup-no-search-result">No results found</p>#}
+        {#</div>#}
+    {#</div>#}
+{#</div>#}
+
+{#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>#}
+{#<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>#}
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>#}
+
+<script src="{{ asset('libs/jquery.min.js') }}"></script>
+<script src="{{ asset('libs/bootstrap.min.js') }}"></script>
+<script src="{{ asset('libs/fontawesome-all.min.js') }}"></script>
+
+</body>
+</html>

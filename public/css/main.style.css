@@ -1,0 +1,226 @@
+@font-face {
+    font-family: "Nexus";
+    src: url('../fonts/Nexus/Nexus.ttf');
+}
+
+@font-face {
+    font-family: "MontBold";
+    src: url('../fonts/MontBold/MontBold.ttf');
+}
+
+h1, h2, h3, h4, h5, h6, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    list-style: none
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-size: 16px;
+    min-width: 320px;
+    position: relative;
+    line-height: 1.6;
+    font-family: "RobotoRegular", sans-serif;
+    overflow-x: hidden;
+    height: 100%;
+    margin:0;
+    padding: 0;
+}
+
+#wrapp {
+    min-height: 100%
+}
+
+main {
+    padding-bottom: 100px;
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* HEADER */
+header {
+    background-color: #474747;
+}
+
+header .header-row {
+    padding: 18px 0;
+}
+
+header .header-row .logo {
+    margin-left: 20px;
+}
+
+header .header-row .logo a {
+    text-decoration: none;
+}
+
+header .header-row .logo h2 {
+    padding: 0;
+    margin: 0;
+    color: #fff;
+    font-family: "MontBold", sans-serif;
+    font-size: 26px;
+}
+
+/*header .header-row .btn-search {*/
+    /*float: right;*/
+/*}*/
+
+/*header .header-row .btn-search a {*/
+    /*outline: none;*/
+/*}*/
+
+/*header .header-row .btn-search .fa-search {*/
+    /*color: #fff;*/
+    /*font-size: 25px;*/
+    /*padding-top: 7px;*/
+/*}*/
+
+
+
+/* HOME PAGE */
+.home-content-articles {
+    margin: 30px 0;
+}
+
+.home-article-item {
+    margin-bottom: 30px;
+}
+
+.home-article-item a {
+    color: #7c99b3;
+}
+
+.home-article-item h2 {
+    color: #5b7fa0;
+    line-height: 32px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.home-article-item .home-article-item-bread-crumb {
+    color: #b9b9b9;
+    font-size: 14px;
+}
+
+.home-article-item .home-article-item-bread-crumb span {
+    padding-right: 30px;
+    padding-left: 7px;
+}
+
+.home-article-item .home-article-item-bread-crumb span:last-child {
+    padding-right: 0;
+}
+
+
+/* TOP BREAD CRUMB (PAGINATION & TOTAL ITEMS) */
+.top-bread-crumb {
+    margin: 20px 0;
+    font-family: sans-serif;
+}
+
+.top-bread-crumb .top-pagination-bread-crumb {
+    color: #888888;
+    float: left;
+}
+
+.top-bread-crumb .top-pagination-bread-crumb span {
+    padding: 0 10px;
+    font-weight: bold;
+}
+
+.top-bread-crumb .top-pagination-bread-crumb .fa-chevron-right {
+    font-size: 12px;
+}
+
+.top-bread-crumb .total-articles-bread-crumb {
+    float: right;
+}
+
+.top-bread-crumb .total-articles-bread-crumb span {
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+
+/* TOP BREAD CRUMB (POSITION ELEMENTS)*/
+.position-elements-bread-crumb {
+    display: none;
+    margin: 10px 0;
+    float: right;
+    border: 1px solid #F2E1AF;
+    padding: 5px 10px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    font-size: 20px;
+    color: #afafaf;
+}
+
+.position-elements-bread-crumb .fa {
+    padding: 0 5px;
+}
+
+.position-elements-bread-crumb .fa:hover {
+    cursor: pointer
+}
+
+.position-elements-bread-crumb .fa-th-large:hover {
+    color: #353535;
+}
+
+.position-elements-bread-crumb .fa-align-justify:hover {
+    color: #353535;
+}
+
+.position-elements-bread-crumb .active {
+    color: #353535;
+}
+
+/* PAGINATION */
+.pagination {
+    margin: 40px 0
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 12px 20px;
+    background-color: #ffe00040;
+    border-radius: 2px;
+    color: rgba(111, 111, 111, 0.82);
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.pagination a:hover {
+    background-color: rgba(253, 219, 0, 0.62);
+    color: #fff;
+}
+
+.pagination a.btn-active-pagination {
+    background-color: rgba(253, 219, 0, 0.62);
+    color: #fff;
+}
+
+/* FOOTER */
+footer {
+    background-color: #595959
+}
+
+footer p {
+    text-align: center;
+    padding: 12px 0;
+    color: #a0a0a0;
+}
+
+
+
