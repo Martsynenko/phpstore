@@ -6,9 +6,9 @@
  * Time: 12:52
  */
 
-namespace App\PageHelper;
+namespace App\Services\NavigationService;
 
-class PageHelper implements PageHelperInterface
+class ArticleNavigationService implements NavigationServiceInterface
 {
     /**
      * @param int $page

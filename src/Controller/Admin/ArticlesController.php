@@ -2,8 +2,8 @@
 
 namespace App\Controller\Admin;
 
-use App\PageHelper\PageHelperInterface;
 use App\Repository\PhpArticlesRepository;
+use App\Services\NavigationService\ArticleNavigationService;
 use App\ValidationHelper\AuthValidationHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,7 +19,7 @@ class ArticlesController extends Controller
      * @param int $page
      * @param SessionInterface $session
      * @param AuthValidationHelper $authValidationHelper
-     * @param PageHelperInterface $pageHelper
+     * @param ArticleNavigationService $articleNavigationService
      * @param PhpArticlesRepository $phpArticlesRepository
      * @return Response
      */
@@ -27,7 +27,7 @@ class ArticlesController extends Controller
         $page = 1,
         SessionInterface $session,
         AuthValidationHelper $authValidationHelper,
-        PageHelperInterface $pageHelper,
+        ArticleNavigationService $articleNavigationService,
         PhpArticlesRepository $phpArticlesRepository
     ) {
         $sessionKey = $session->get(LoginController::SESSION_SESSION_KEY);
@@ -36,7 +36,7 @@ class ArticlesController extends Controller
         if (!$authValidationHelper->checkAuthUser($userId, $sessionKey)) {
             return $this->redirectToRoute('login');
         }
-        $offset = $pageHelper->getOffset($page, self::ADMIN_LIMIT_ARTICLES);
+        $offset = $articleNavigationService->getOffset($page, self::ADMIN_LIMIT_ARTICLES);
         $articles = $phpArticlesRepository->getArticlesIDTitleByPage($offset, self::ADMIN_LIMIT_ARTICLES);
         return $this->render('admin/articles/index.html.twig', [
             'articles' => $articles

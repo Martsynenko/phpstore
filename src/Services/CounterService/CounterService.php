@@ -6,7 +6,7 @@
  * Time: 21:47
  */
 
-namespace App\CounterService;
+namespace App\Services\CounterService;
 
 use App\Repository\PhpArticlesRepository;
 

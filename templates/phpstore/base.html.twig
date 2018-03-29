@@ -67,13 +67,12 @@
                         <div class="home-content-articles">
                             {% for article in articles %}
                             <div class="home-article-item col-md-9 col-sm-6">
-                                <a href="#"><h2>Unit тестирование. PHP Unit. Тестирование встроенных методов php</h2></a>
+                                <a href="#"><h2>{{ article.title }}</h2></a>
                                 <div class="home-article-item-bread-crumb">
-                                    <i class="fas fa-eye"></i><span>212</span>
-                                    <i class="far fa-clock"></i><span>2001-12-32</span>
+                                    <i class="fas fa-eye"></i><span>{{ article.visits }}</span>
+                                    <i class="far fa-clock"></i><span>{{ article.date }}</span>
                                 </div>
-                                <p>По крайней мере, о html5-autofocus Я знаю, что большинство мобильных браузеров (помимо android-firefox) игнорируют атрибут автофокуса. Похоже, это хорошая идея относительно удобства использования. В большинстве случаев вы не хотите закрывать половину экрана / веб-страницы виртуальной клавиатурой в момент загрузки страницы...
-                                    <a href="#">Подробнее</a> </p>
+                                {{ article.text }} <a href="#">Подробнее</a>
                             </div>
                             {% endfor %}
                         </div>
@@ -81,15 +80,15 @@
                 </div>
             </section>
 
+            {% if pagination.show != false %}
             <div class="container">
                 <div class="pagination">
-                    <a href="#" class="btn-active-pagination">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
+                    {% for item in pagination.pages %}
+                    <a href="{{ path(pagination.routeName, {'page': item.page}) }}" {% if item.active == true %}class="btn-active-pagination"{% endif %}>{{ item.page }}</a>
+                    {% endfor %}
                 </div>
             </div>
+            {% endif %}
         {% endblock %}
 
         {#<div class="container">#}

@@ -39,15 +39,19 @@ class PhpArticlesRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
-    public function getArticles($limit, $offset = 0)
+    public function getShortDataArticles($limit, $offset = 0)
     {
         return $this->createQueryBuilder('pa')
-            ->select()
+            ->select('pa.title, substring(pa.text, 1, 300) as text, pa.date, pav.visits')
+            ->join(
+                PhpArticlesVisits::class,
+                'pav',
+                Join::WITH,
+                'pa.id = pav.articleId'
+            )
             ->setFirstResult($offset)
             ->setMaxResults($limit)
             ->getQuery()
             ->getArrayResult();
-
-
     }
 }
