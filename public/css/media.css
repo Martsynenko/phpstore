@@ -1,0 +1,440 @@
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+    /* HEADER */
+    header .header-row {
+        padding: 13px;
+    }
+
+    .home-content-articles {
+        margin-top: 0;
+    }
+
+    .home-article-item h2 {
+        font-size: 22px;
+        line-height: 28px;
+    }
+
+    .home-article-item p {
+        font-size: 14px;
+    }
+
+    .home-article-item .home-article-item-bread-crumb {
+        font-size: 12px;
+    }
+
+    /* TOP BREAD CRUMB (POSITION ELEMENTS) */
+    .position-elements-bread-crumb {
+        display: block;
+    }
+
+    .total-articles-bread-crumb p {
+        font-size: 14px;
+    }
+
+    /* PAGE ARTICLE */
+    .link-back {
+        font-size: 14px;
+    }
+
+    .article h1 {
+        font-size: 26px;
+        line-height: 34px;
+    }
+
+    .article .article-item-bread-crumb {
+        font-size: 14px;
+    }
+
+    .article p {
+        font-size: 15px;
+    }
+
+    .title-comments h6 {
+        font-size: 18px;
+        padding-top: 6px;
+    }
+
+    .title-comments button {
+        font-size: 12px;
+    }
+
+    .comments-content .comments-content-item {
+        font-size: 14px;
+    }
+
+    .comments-content .comments-content-item img {
+        width: 35px;
+    }
+
+    .comments-content .comments-content-item p {
+        font-size: 12px;
+    }
+
+    .comments-content .btn-comment-load-more button {
+        font-size: 12px;
+        padding-bottom: 4px;
+        padding-top: 4px;
+    }
+
+    .title-comments .new-comment form {
+        padding: 14px;
+    }
+
+    .title-comments .new-comment form input[type='text'] {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .title-comments .new-comment form textarea {
+        font-size: 12px;
+        width: 100%;
+    }
+
+    .title-comments .new-comment form input[type='submit'] {
+        font-size: 12px;
+    }
+
+    /* FOOTER */
+    footer p {
+        font-size: 13px;
+    }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+    /* HEADER */
+    header .header-row {
+        padding: 10px;
+    }
+
+    header .header-row .logo h2 {
+        font-size: 24px;
+    }
+
+    header .header-row .btn-search .fa-search {
+        font-size: 23px;
+    }
+
+    .position-elements-bread-crumb {
+        padding: 2px 8px;
+    }
+
+    .total-articles-bread-crumb p {
+        font-size: 12px;
+    }
+
+    .home-article-item h2 {
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    .home-article-item p {
+        font-size: 14px;
+    }
+
+    .pagination {
+        margin: 20px 0;
+    }
+
+    .pagination a {
+        padding: 9px 16px;
+    }
+
+    footer p {
+        font-size: 12px;
+    }
+
+    /* PAGE ARTICLE */
+    .link-back {
+        margin: 15px 0;
+    }
+
+    .article {
+        margin-top: 0;
+    }
+
+    .article h1 {
+        font-size: 22px;
+        line-height: 30px;
+    }
+
+    .article p {
+        font-size: 14px;
+    }
+
+    .article .article-item-bread-crumb {
+        font-size: 12px;
+        padding: 6px 0;
+    }
+
+    .title-comments h6 {
+        font-size: 18px;
+    }
+
+    .title-comments .block-btn-new-comment {
+        font-size: 14px;
+    }
+
+    .title-comments .new-comment form input[type='text'], textarea {
+        width: 80%;
+    }
+
+    .comments-content .comments-content-item img {
+        width: 40px;
+    }
+
+    .comments-content .comments-content-item span.comment-user-name {
+        font-size: 14px;
+    }
+
+    .comments-content .comments-content-item span.comment-time {
+        font-size: 14px
+    }
+
+    .comments-content .comments-content-item p {
+        font-size: 13px
+    }
+
+    .comments-content .btn-comment-load-more button {
+        font-size: 12px;
+    }
+
+    .title-comments .new-comment form input[type='text'] {
+        font-size: 12px;
+        width: 100%;
+    }
+
+    .title-comments .new-comment form textarea {
+        font-size: 12px;
+        width: 100%;
+    }
+
+    .title-comments .new-comment form {
+        padding: 14px;
+    }
+
+    .title-comments .new-comment form input[type='submit'] {
+        font-size: 12px;
+    }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+
+    .mobile-device-hidden {
+        display: none;
+    }
+
+    section {
+        margin-top: 20px;
+    }
+
+    /* HEADER*/
+    header .header-row {
+        padding: 7px;
+    }
+
+    header .header-row .logo h2 {
+        font-size: 18px;
+    }
+
+    header .header-row .btn-search .fa-search {
+        font-size: 21px;
+    }
+
+    .top-bread-crumb {
+        font-size: 14px;
+    }
+
+    .position-elements-bread-crumb {
+        font-size: 19px;
+        padding: 0 6px;
+    }
+
+    .total-articles-bread-crumb {
+        display: none;
+    }
+
+    .home-article-item h2 {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .home-article-item p {
+        font-size: 12px;
+    }
+
+    .home-article-item .home-article-item-bread-crumb {
+        font-size: 12px;
+    }
+
+    .home-article-item .home-article-item-bread-crumb .fa {
+        padding-right: 4px;
+    }
+
+    .home-article-item .home-article-item-bread-crumb span {
+        padding-right: 10px;
+    }
+
+    .pagination {
+        margin: 0;
+        font-size: 12px;
+    }
+
+    .pagination a {
+        padding: 6px 12px;
+    }
+
+    footer p {
+        font-size: 12px;
+    }
+
+    #search-popup {
+        font-size: 12px;
+    }
+
+    #search-popup .fa-circle-o-notch {
+        font-size: 18px;
+        top: 11px;
+    }
+
+    #search-popup .mfp-close {
+        font-size: 24px;
+        padding-top: 0;
+        margin-top: -1px;
+    }
+
+    #search-popup .search-popup-result {
+        padding: 10px 0;
+    }
+
+    /* PAGE ARTICLE*/
+    .link-back {
+        font-size: 12px;
+        margin: 10px 0;
+    }
+
+    .article {
+        margin-top: 0;
+    }
+
+   .article h1 {
+       font-size: 20px;
+       line-height: 28px;
+   }
+
+   .article p {
+       font-size: 14px;
+   }
+
+    .article .article-item-bread-crumb {
+        font-size: 12px;
+        padding: 6px 0;
+    }
+
+    .title-comments h6 {
+        font-size: 16px;
+        float: none;
+    }
+
+    .title-comments .block-btn-new-comment {
+        font-size: 12px;
+        float: none;
+        margin-top: 5px;
+    }
+
+    .title-comments .block-btn-new-comment button {
+        padding: 0;
+    }
+
+    .title-comments .new-comment form input[type='text'],
+    .title-comments .new-comment form textarea,
+    .title-comments .new-comment form input[type='submit'] {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .comments-content .comments-content-item img {
+        width: 35px;
+    }
+
+    .comments-content .comments-content-item span.comment-user-name {
+        font-size: 14px;
+    }
+
+    .comments-content .comments-content-item .fa {
+        padding: 0 5px;
+        font-size: 14px;
+    }
+
+    .comments-content .comments-content-item span.comment-time {
+        font-size: 12px
+    }
+
+    .comments-content .comments-content-item p {
+        font-size: 12px;
+    }
+
+    .comments-content .btn-comment-load-more button {
+        font-size: 12px;
+    }
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px) {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*==========  Mobile First Method  ==========*/
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) {
+
+}
+
+
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+
+}
+
+
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+
+}
+
+
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+
+}
+
+
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+
+}

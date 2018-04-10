@@ -4,7 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\PhpArticles;
 use App\Entity\PhpArticlesVisits;
+use App\Entity\PhpUrls;
+use App\Entity\PhpUrlsArticles;
 use App\Repository\PhpArticlesRepository;
+use App\Repository\PhpUrlsRepository;
+use App\Services\UrlDataService\UrlDataServices\ArticleUrlData;
 use App\ValidationHelper\AuthValidationHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,19 +20,20 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class ArticleController extends Controller
 {
     /**
-     * @Route("/wde-master/admin/article/{id}", requirements={"id"="\d+"}, name="admin-article")
-     * @param int $id
+     * @Route("/wde-master/admin/{articleUrl}", requirements={"articleUrl"="article/.+/"}, name="admin-article")
+     * @param ArticleUrlData $urlData
      * @param SessionInterface $session
      * @param AuthValidationHelper $authValidationHelper
      * @param PhpArticlesRepository $phpArticlesRepository
      * @return Response
      */
     public function index(
-        $id = 0,
+        ArticleUrlData $urlData,
         SessionInterface $session,
         AuthValidationHelper $authValidationHelper,
         PhpArticlesRepository $phpArticlesRepository
     ) {
+        $articleId = $urlData->getArticleId();
         $sessionKey = $session->get(LoginController::SESSION_SESSION_KEY);
         $userId = $session->get(LoginController::SESSION_USER_ID);
 
@@ -36,17 +41,17 @@ class ArticleController extends Controller
             return $this->redirectToRoute('admin-login');
         }
 
-        /** @var PhpArticles $article */
-        $article = $phpArticlesRepository->find($id);
-
-        if ($article) {
+        if ($articleId) {
+            /** @var PhpArticles $article */
+            $article = $phpArticlesRepository->find($articleId);
             $textArticle = htmlspecialchars_decode($article->getText());
             $article->setText($textArticle);
+            $article->setUrl($urlData->getUrl());
 
             $dataArticle = ['article' => $article];
 
             return $this->render('admin/article/index.html.twig', $dataArticle);
-        } elseif ($id == 0) {
+        } elseif ($articleId == 0) {
             return $this->render('admin/article/index.html.twig', []);
         }
 
@@ -64,6 +69,8 @@ class ArticleController extends Controller
     {
         $articleEntity = null;
         $articleVisitEntity = null;
+        $urlEntity = null;
+        $urlArticleEntity = null;
 
         $entityManager = $this->getDoctrine()->getManager();
         $dataArticle = $request->request->all();
@@ -78,6 +85,16 @@ class ArticleController extends Controller
                 PhpArticlesVisits::class)->findBy(['articleId' => $articleId]
             );
             $articleVisitEntity = current($articleVisitEntity);
+            $urlArticle = $entityManager->getRepository(
+                PhpUrlsArticles::class)->findBy(['articleId' => $articleId]
+            );
+            /** @var PhpUrlsArticles $urlArticleEntity */
+            $urlArticleEntity = current($urlArticle);
+            $urlId = $urlArticleEntity->getUrlId();
+            /** @var PhpUrls $urlEntity */
+            $urlEntity = $entityManager->getRepository(PhpUrls::class)->find($urlId);
+            $urlEntity->setUrl($dataArticle['articleUrl']);
+            $entityManager->persist($urlEntity);
         }
 
         if (!($articleEntity instanceof PhpArticles)) {
@@ -92,8 +109,8 @@ class ArticleController extends Controller
         $articleEntity->setTags($dataArticle['tagsArticle']);
         $articleEntity->setDate(date('Y-m-d'));
         $articleEntity->setStatus(strtolower($dataArticle['statusArticle']));
-        $entityManager->persist($articleEntity);
 
+        $entityManager->persist($articleEntity);
         $entityManager->flush();
 
         if (!($articleVisitEntity instanceof PhpArticlesVisits)) {
@@ -101,8 +118,24 @@ class ArticleController extends Controller
             $articleVisitEntity->setArticleId($articleEntity->getId());
             $articleVisitEntity->setVisits(0);
             $entityManager->persist($articleVisitEntity);
+        }
+
+        if (!($urlEntity instanceof PhpUrls)) {
+            $urlEntity = new PhpUrls();
+            $urlEntity->setUrl($dataArticle['articleUrl']);
+            $urlEntity->setSectionId(1);
+            $entityManager->persist($urlEntity);
             $entityManager->flush();
         }
+
+        if (!($urlArticleEntity instanceof PhpUrlsArticles)) {
+            $urlArticleEntity = new PhpUrlsArticles();
+            $urlArticleEntity->setArticleId($articleEntity->getId());
+            $urlArticleEntity->setUrlId($urlEntity->getId());
+            $entityManager->persist($urlArticleEntity);
+        }
+
+        $entityManager->flush();
 
         $articleId = $articleEntity->getId();
 
@@ -112,16 +145,19 @@ class ArticleController extends Controller
     /**
      * @Route("/wde-master/admin/article/delete", name="admin-articleDelete")
      * @param Request $request
+     * @param PhpUrlsRepository $phpUrlsRepository
      * @return JsonResponse
      */
     public function deleteArticle(
-        Request $request
+        Request $request,
+        PhpUrlsRepository $phpUrlsRepository
     )
     {
         $entityManager = $this->getDoctrine()->getManager();
         $dataArticle = $request->request->all();
 
         $articleId = $dataArticle['articleId'];
+        $phpUrlsRepository->deleteUrlByArticleId($articleId);
 
         $articleEntity = $entityManager->getRepository(PhpArticles::class)->find($articleId);
 

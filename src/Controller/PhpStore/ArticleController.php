@@ -20,7 +20,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return $this->render('phpstore/articles/article.html.twig');
+        return $this->render('phpstore/article/article.html.twig');
     }
 }
 

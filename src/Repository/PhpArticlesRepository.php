@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\PhpArticles;
 use App\Entity\PhpArticlesVisits;
+use App\Entity\PhpUrls;
+use App\Entity\PhpUrlsArticles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -23,8 +25,10 @@ class PhpArticlesRepository extends ServiceEntityRepository
     public function getArticlesIDTitleByPage($offset = 0, $limit)
     {
         return $this->createQueryBuilder('pa')
-            ->select('pa.id, pa.title, pa.date, pav.visits, pa.status')
+            ->select('pa.id, pa.title, pa.date, pav.visits, pa.status, pu.url')
             ->leftJoin(PhpArticlesVisits::class, 'pav', Join::WITH, 'pav.articleId = pa.id')
+            ->leftJoin(PhpUrlsArticles::class, 'pua', Join::WITH, 'pua.articleId = pa.id')
+            ->leftJoin(PhpUrls::class, 'pu', Join::WITH, 'pu.id = pua.urlId')
             ->setFirstResult($offset)
             ->setMaxResults($limit)
             ->getQuery()
@@ -42,7 +46,7 @@ class PhpArticlesRepository extends ServiceEntityRepository
     public function getShortDataArticles($limit, $offset = 0)
     {
         return $this->createQueryBuilder('pa')
-            ->select('pa.title, substring(pa.text, 1, 300) as text, pa.date, pav.visits')
+            ->select('pa.id, pa.title, substring(pa.text, 1, 300) as text, pa.date, pav.visits')
             ->join(
                 PhpArticlesVisits::class,
                 'pav',
@@ -53,5 +57,10 @@ class PhpArticlesRepository extends ServiceEntityRepository
             ->setMaxResults($limit)
             ->getQuery()
             ->getArrayResult();
+    }
+
+    public function getFullArticleData()
+    {
+
     }
 }

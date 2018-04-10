@@ -15,7 +15,7 @@ class ArticlesController extends Controller
 {
     const ADMIN_LIMIT_ARTICLES = 30;
     /**
-     * @Route("wde-master/admin/articles/{page}", name="admin-articles")
+     * @Route("wde-master/admin/articles/{page}", name="admin-articles", defaults={"page" = 1})
      * @param int $page
      * @param SessionInterface $session
      * @param AuthValidationHelper $authValidationHelper
@@ -34,7 +34,7 @@ class ArticlesController extends Controller
         $userId = $session->get(LoginController::SESSION_USER_ID);
 
         if (!$authValidationHelper->checkAuthUser($userId, $sessionKey)) {
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('admin-login');
         }
         $offset = $articleNavigationService->getOffset($page, self::ADMIN_LIMIT_ARTICLES);
         $articles = $phpArticlesRepository->getArticlesIDTitleByPage($offset, self::ADMIN_LIMIT_ARTICLES);

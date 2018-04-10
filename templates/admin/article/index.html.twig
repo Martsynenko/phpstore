@@ -15,6 +15,12 @@
                     <h3><i class="fas fa-cogs"></i> SEO Head block</h3>
                     <ul>
                         <li class="li-block">
+                            <p><label>Url</label></p>
+                            <input type="text" class="seo-url ifield empty-input" placeholder="Type url here"
+                                    {% if article is defined %} value="{{ article.url }}" {% endif %}
+                            />
+                        </li>
+                        <li class="li-block">
                             <p><label>Title</label></p>
                             <input type="text" class="seo-title ifield empty-input" placeholder="Type title here"
                                 {% if article is defined %} value="{{ article.seoTitle }}" {% endif %}

@@ -1,0 +1,122 @@
+{% extends 'phpstore/base.html.twig' %}
+
+{% block content %}
+    <main>
+        <div class="container">
+
+            <div class="link-back">
+                <a href="/"><i class="fas fa-chevron-left"></i> Вернуться ко всем статьям</a>
+            </div>
+
+            {#<div class="row">#}
+                {#<div class="col-md-12">#}
+                    {#<div class="top-bread-crumb">#}
+                        {#<div class="top-pagination-bread-crumb">#}
+                            {#<span>Главная</span><i class="fa fa-angle-right" aria-hidden="true"></i><span>Публикации</span>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="article">
+                        <h1>Представляю вашему вниманию перевод достаточно большой и объемной статьи по поводу вечного спора</h1>
+                        <div class="article-item-bread-crumb">
+                            <i class="fas fa-eye"></i><span>212</span>
+                            <i class="far fa-clock"></i><span>2001-12-32</span>
+                        </div>
+                        <p>Удивлены, что значение margin-bottom, установленное в 1em, разное в обоих случаях?
+
+                            Это явление объясняется тем, что 1em равен размеру шрифта (font-size) своего элемента. Так как font-size у элемента h1 был установлен в 2em, то другие свойства у этого h1 (тот же margin-bottom) уже будут отталкиваться от нового значения font-size. То есть для них 1em будет равен уже 32px.
+
+                            Людей сбивает с толку тот факт, что 1em может принимать различные значения в разных участках кода. Подобное может вас конкретно запутать, если вы только-только начали разбираться с em.
+
+                            Вот такие вот эти em. Что ж, идем далее. Впереди нас ждут rem'ы.</p>
+                        <br>
+                        <p>Удивлены, что значение margin-bottom, установленное в 1em, разное в обоих случаях?
+
+                            Это явление объясняется тем, что 1em равен размеру шрифта (font-size) своего элемента. Так как font-size у элемента h1 был установлен в 2em, то другие свойства у этого h1 (тот же margin-bottom) уже будут отталкиваться от нового значения font-size. То есть для них 1em будет равен уже 32px.
+
+                            Людей сбивает с толку тот факт, что 1em может принимать различные значения в разных участках кода. Подобное может вас конкретно запутать, если вы только-только начали разбираться с em.
+
+                            Вот такие вот эти em. Что ж, идем далее. Впереди нас ждут rem'ы.</p>
+                        <br>
+                        <p>Удивлены, что значение margin-bottom, установленное в 1em, разное в обоих случаях?
+
+                            Это явление объясняется тем, что 1em равен размеру шрифта (font-size) своего элемента. Так как font-size у элемента h1 был установлен в 2em, то другие свойства у этого h1 (тот же margin-bottom) уже будут отталкиваться от нового значения font-size. То есть для них 1em будет равен уже 32px.
+
+                            Людей сбивает с толку тот факт, что 1em может принимать различные значения в разных участках кода. Подобное может вас конкретно запутать, если вы только-только начали разбираться с em.
+
+                            Вот такие вот эти em. Что ж, идем далее. Впереди нас ждут rem'ы.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="comments">
+                        <div class="title-comments">
+                            <div class="row">
+                                <div class="col-md-6 col">
+                                    <h6><span class="mobile-device-hidden title">Комментарии </span><i class="far fa-comments"></i><span class="count">12</span></h6>
+                                </div>
+                                <div class="col-md-6 col">
+                                    <button class="btn-new-comment" value="0">Оставить<span class="mobile-device-hidden"> комментарий</span></button>
+                                    {#<i class="fa fa-angle-up arrow-down"></i>#}
+                                </div>
+                            </div>
+                            {#<div class="block-btn-new-comment">#}
+                                {#<button class="btn-new-comment" value="0">Оставить комментарий</button>#}
+                                {#<i class="fa fa-angle-up arrow-down"></i>#}
+                            {#</div>#}
+                            <div class="clearfix"></div>
+                            <div class="new-comment">
+                                <form>
+                                    <ul>
+                                        <li>
+                                            <input type="text" placeholder="Ваше имя"/>
+                                        </li>
+                                        <li>
+                                            <input type="text" placeholder="Ваш email"/>
+                                        </li>
+                                        <li>
+                                            <textarea placeholder="Ваш комментарий"></textarea>
+                                        </li>
+                                        <li>
+                                            <input type="submit"/>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="comments-content">
+                        <div class="comments-content-item">
+                            <img src="{{ asset('img/no-avatar.png') }}" alt="1"/>
+                            <span class="comment-user-name">Александр</span>
+                            <i class="fas fa-ellipsis-h"></i>
+                            <span class="comment-time">2018-09-01 в 9:20</span>
+                            <p>Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum используют потому, что тот обеспечивает более или менее стандартное заполнение шаблона, а также реальное распределение букв и пробелов в абзацах, которое не получается при простой дубликации "Здесь ваш текст</p>
+                        </div>
+                        <div class="comments-content-item">
+                            <img src="{{ asset('img/no-avatar.png') }}" alt="1"/>
+                            <span class="comment-user-name">Александр</span>
+                            <i class="fas fa-ellipsis-h"></i>
+                            <span class="comment-time">2018-09-01 в 9:20</span>
+                            <p>Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum используют потому, что тот обеспечивает более или менее стандартное заполнение шаблона, а также реальное распределение букв и пробелов в абзацах, которое не получается при простой дубликации "Здесь ваш текст</p>
+                        </div>
+                        <div class="btn-comment-load-more">
+                            <button>Загрузить еще</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

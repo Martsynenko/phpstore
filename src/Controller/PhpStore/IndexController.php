@@ -12,7 +12,7 @@ use App\Repository\PhpArticlesRepository;
 use App\Services\CounterService\CounterService;
 use App\Services\NavigationService\ArticleNavigationService;
 use App\Services\PaginationService\ArticlePaginationService;
-use App\TwigService\TwigService;
+use App\Services\TwigService\TwigService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,8 +23,8 @@ class IndexController extends Controller
     const HOME_ARTICLES_LIMIT = 5;
 
     /**
-     * @Route("/{page}", requirements={"page"="\d+"}, name="home")
-     * @param int $page
+     * @Route("/{page}", requirements={"page"="\w+"}, name="home")
+     * @param string $page
      * @param Request $request
      * @param CounterService $counterService
      * @param ArticleNavigationService $articleNavigationService
@@ -33,7 +33,7 @@ class IndexController extends Controller
      * @return Response
      */
     public function index(
-        $page = 1,
+        $page = 'page1',
         Request $request,
         CounterService $counterService,
         ArticleNavigationService $articleNavigationService,
@@ -41,7 +41,8 @@ class IndexController extends Controller
         PhpArticlesRepository $phpArticlesRepository
     )
     {
-        $countArticles = $counterService->getCountArticles();
+        $page = substr($page, 4);
+        $countBreadcrumbArticles = $counterService->getBreadcrumbCountArticles();
 
         $routeName = $request->get('_route');
 
@@ -58,9 +59,9 @@ class IndexController extends Controller
         }
 
         return $this->render('phpstore/base.html.twig', [
-            TwigService::TWIG_KEY_COUNT_ARTICLES => $countArticles,
-            'articles' => $articles,
-            'pagination' => $pagination
+            TwigService::TWIG_KEY_COUNT_ARTICLES => $countBreadcrumbArticles,
+            TwigService::TWIG_KEY_ARTICLES => $articles,
+            TwigService::TWIG_KEY_PAGINATION => $pagination
         ]);
     }
 }

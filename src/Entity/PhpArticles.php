@@ -60,6 +60,27 @@ class PhpArticles
     private $status;
 
     /**
+     * @var string
+     */
+    private $url;
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrl(string $url)
+    {
+        $this->url = $url;
+    }
+
+    /**
      * @return mixed
      */
     public function getId()

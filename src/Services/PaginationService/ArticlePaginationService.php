@@ -87,6 +87,7 @@ class ArticlePaginationService implements PaginationServiceInterface
                 }
                 $pagination[self::KEY_PAGINATION_PAGES][] = [
                     'page' => $i,
+                    'url' => 'page' . $i,
                     'active' => $activePage
                 ];
                 $activePage = false;

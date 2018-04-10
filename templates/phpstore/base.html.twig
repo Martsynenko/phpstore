@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('css/fontawesome-all.min.css') }}"/>
 
     <link rel="stylesheet" href="{{ asset('css/main.style.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/media.css') }}"/>
 
 </head>
 
@@ -37,9 +38,10 @@
         </div>
     </header>
 
+    {% block content %}
     <main>
         {% block top_breadcrumb %}
-            <div class="container">
+            <div class="container mobile-device-hidden">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="top-bread-crumb">
@@ -60,36 +62,34 @@
             </div>
         {% endblock %}
 
-        {% block content %}
-            <section>
-                <div class="container">
-                    <div class="row">
-                        <div class="home-content-articles">
-                            {% for article in articles %}
-                            <div class="home-article-item col-md-9 col-sm-6">
-                                <a href="#"><h2>{{ article.title }}</h2></a>
-                                <div class="home-article-item-bread-crumb">
-                                    <i class="fas fa-eye"></i><span>{{ article.visits }}</span>
-                                    <i class="far fa-clock"></i><span>{{ article.date }}</span>
-                                </div>
-                                {{ article.text }} <a href="#">Подробнее</a>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="home-content-articles">
+                        {% for article in articles %}
+                        <div class="home-article-item col-md-9">
+                            <a href="{{ path('article', {'id':article.id}) }}"><h2>{{ article.title }}</h2></a>
+                            <div class="home-article-item-bread-crumb">
+                                <i class="fas fa-eye"></i><span>{{ article.visits }}</span>
+                                <i class="far fa-clock"></i><span>{{ article.date }}</span>
                             </div>
-                            {% endfor %}
+                            <p>{{ article.text }} <a href="{{ path('article', {'id':article.id}) }}">Подробнее</a></p>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
-            </section>
-
-            {% if pagination.show != false %}
-            <div class="container">
-                <div class="pagination">
-                    {% for item in pagination.pages %}
-                    <a href="{{ path(pagination.routeName, {'page': item.page}) }}" {% if item.active == true %}class="btn-active-pagination"{% endif %}>{{ item.page }}</a>
-                    {% endfor %}
-                </div>
             </div>
-            {% endif %}
-        {% endblock %}
+        </section>
+
+        {% if pagination.show != false %}
+        <div class="container">
+            <div class="pagination">
+                {% for item in pagination.pages %}
+                <a href="{{ path(pagination.routeName, {'page': item.url}) }}" {% if item.active == true %}class="btn-active-pagination"{% endif %}>{{ item.page }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
 
         {#<div class="container">#}
             {#<div class="row">#}
@@ -105,6 +105,7 @@
         {#</div>#}
 
     </main>
+    {% endblock %}
 </div>
 
 <footer>
@@ -131,6 +132,8 @@
 <script src="{{ asset('libs/jquery.min.js') }}"></script>
 <script src="{{ asset('libs/bootstrap.min.js') }}"></script>
 <script src="{{ asset('libs/fontawesome-all.min.js') }}"></script>
+
+<script src="{{ asset('js/phpstore/article/article.js') }}"></script>
 
 </body>
 </html>

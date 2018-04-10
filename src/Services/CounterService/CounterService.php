@@ -29,7 +29,7 @@ class CounterService
     /**
      * @return array
      */
-    public function getCountArticles()
+    public function getBreadcrumbCountArticles()
     {
         $countArticles = $this->phpArticlesRepository->getCountArticles();
 
