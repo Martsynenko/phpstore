@@ -1,4 +1,5 @@
 $.LoadingOverlaySetup({
+    background      : "rgba(0, 0, 0, 0.4)",
     color           : "rgba(0, 0, 0, 0.4)",
     maxSize         : "25px",
     minSize         : "25px",
@@ -38,3 +39,15 @@ $('.btn-new-comment').click(function(){
         btnNewComment.val(0);
     }
 });
+
+// $('.btn-comment-load-more').click(function(){
+//     $.ajax({
+//         type: 'POST',
+//         dataType: 'html',
+//         url: '/article/load-comments/',
+//         success: function(data) {
+//             alert('heloo');
+//         }
+//     });
+//     return false;
+// });

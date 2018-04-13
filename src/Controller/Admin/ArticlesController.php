@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class ArticlesController extends Controller
 {
     const ADMIN_LIMIT_ARTICLES = 30;
+
     /**
      * @Route("wde-master/admin/articles/{page}", name="admin-articles", defaults={"page" = 1})
      * @param int $page

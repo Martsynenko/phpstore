@@ -408,7 +408,7 @@ footer p {
     color: #4d4d4d;
 }
 
-.comments-content .btn-comment-load-more button {
+.comments-content .btn-primary {
     border: none;
     background-color: rgb(91, 127, 160);
     width: 100%;
@@ -422,7 +422,7 @@ footer p {
     margin-top: 10px;
 }
 
-.comments-content .btn-comment-load-more button:hover {
+.comments-content .btn-primary:hover {
     background-color: rgb(92, 105, 138);
     cursor: pointer;
 }

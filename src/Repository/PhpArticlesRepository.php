@@ -46,7 +46,9 @@ class PhpArticlesRepository extends ServiceEntityRepository
     public function getShortDataArticles($limit, $offset = 0)
     {
         return $this->createQueryBuilder('pa')
-            ->select('pa.id, pa.title, substring(pa.text, 1, 300) as text, pa.date, pav.visits')
+            ->select('pa.id, pa.title, substring(pa.text, 1, 300) as text, pa.date, pav.visits, pu.url')
+            ->join(PhpUrlsArticles::class, 'pua', Join::WITH, 'pua.articleId = pa.id')
+            ->join(PhpUrls::class, 'pu', Join::WITH, 'pu.id = pua.urlId')
             ->join(
                 PhpArticlesVisits::class,
                 'pav',
