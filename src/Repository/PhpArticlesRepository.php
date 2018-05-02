@@ -12,6 +12,8 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class PhpArticlesRepository extends ServiceEntityRepository
 {
+    const COLUMN_TEXT = 'text';
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, PhpArticles::class);
@@ -26,8 +28,18 @@ class PhpArticlesRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('pa')
             ->select('pa.id, pa.title, pa.date, pav.visits, pa.status, pu.url')
-            ->leftJoin(PhpArticlesVisits::class, 'pav', Join::WITH, 'pav.articleId = pa.id')
-            ->leftJoin(PhpUrlsArticles::class, 'pua', Join::WITH, 'pua.articleId = pa.id')
+            ->leftJoin(
+                PhpArticlesVisits::class,
+                'pav',
+                Join::WITH,
+                'pav.articleId = pa.id'
+            )
+            ->leftJoin(
+                PhpUrlsArticles::class,
+                'pua',
+                Join::WITH,
+                'pua.articleId = pa.id'
+            )
             ->leftJoin(PhpUrls::class, 'pu', Join::WITH, 'pu.id = pua.urlId')
             ->setFirstResult($offset)
             ->setMaxResults($limit)
@@ -61,8 +73,16 @@ class PhpArticlesRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
-    public function getFullArticleData()
+    public function getFullArticleDataByArticleId($articleId)
     {
+        $stmt = "SELECT `pa`.*, `pav`.`visits` FROM `php_articles` AS `pa`
+                    JOIN `php_articles_visits` AS `pav` ON `pa`.`id` = `pav`.`article_id`
+                 WHERE `pa`.`id` = :articleId";
 
+        $params = [
+            'articleId' => $articleId
+        ];
+
+        return $this->_em->getConnection()->executeQuery($stmt, $params)->fetchAll();
     }
 }

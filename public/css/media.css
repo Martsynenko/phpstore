@@ -5,6 +5,11 @@
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
+    /*GENERAL*/
+    pre {
+        font-size: 12px;
+    }
+
     /* HEADER */
     header .header-row {
         padding: 13px;
@@ -380,7 +385,7 @@
         font-size: 12px;
     }
 
-    .comments-content .btn-comment-load-more button {
+    .comments-content .btn-primary {
         font-size: 12px;
     }
 }

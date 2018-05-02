@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{ asset('css/main.style.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/media.css') }}"/>
 
+    {% block styles %}{% endblock %}
+
 </head>
 
 <body>
@@ -134,8 +136,10 @@
 <script src="{{ asset('libs/jquery.min.js') }}"></script>
 <script src="{{ asset('libs/bootstrap.min.js') }}"></script>
 <script src="{{ asset('libs/fontawesome-all.min.js') }}"></script>
+<script src="{{ asset('libs/loadingoverlay.js') }}"></script>
 
-<script src="{{ asset('js/phpstore/article/article.js') }}"></script>
+<script src="{{ asset('js/phpstore/common.js') }}"></script>
+{% block jsscript %}{% endblock %}
 
 </body>
 </html>

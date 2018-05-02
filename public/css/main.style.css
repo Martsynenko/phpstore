@@ -8,6 +8,16 @@
     src: url('../fonts/MontBold/MontBold.ttf');
 }
 
+.fa-circle-notch {
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.fa-spinner {
+    font-size: 20px;
+    color: #ffffff;
+}
+
 h1, h2, h3, h4, h5, h6, p, ul {
     margin: 0;
     padding: 0;
@@ -44,6 +54,14 @@ main {
 .hidden {
     display: none;
 }
+
+pre {
+    background-color: #f7f9ff85;
+    padding: 20px;
+    border: 1px solid #f0f0f1;
+    border-radius: 2px;
+}
+
 
 
 /* HEADER */
@@ -90,12 +108,12 @@ header .header-row .logo h2 {
 }
 
 .link-back a {
-    color: #3998af;
+    color: #909090;
     text-decoration: none;
 }
 
 .link-back a:hover {
-    color: #2e677c;
+    color: #757575;
 }
 
 .link-back a .fa-chevron-left {
@@ -306,11 +324,11 @@ footer p {
 }
 
 .title-comments button {
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background-color: rgb(91, 127, 160);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: rgb(255, 255, 255);
     outline: none;
     border-radius: 2px;
-    color: white;
+    color: grey;
     padding: 3px 15px;
     font-size: 14px;
     float: right;
@@ -318,61 +336,46 @@ footer p {
 
 .title-comments button:hover {
     cursor: pointer;
+    border: 1px solid rgb(70, 70, 70);
+    background-color: rgb(70, 70, 70);
+    color: #ffffff;
 }
 
 .title-comments .new-comment {
     display: none;
     margin-top: 10px;
     width: 100%;
-    background-color: #f9f9f9;
-    box-shadow: 0 0 1px rgba(0,0,0,0.3);
-    border-radius: 2px;
 }
 
-.title-comments .new-comment form {
-    padding: 20px;
-}
-
-.title-comments .new-comment form input[type='text'] {
+.title-comments .new-comment form input[type='text'],
+.title-comments .new-comment form input[type='email'] {
     width: 60%;
     margin-bottom: 10px;
-    border: 1px solid rgba(7, 111, 138, 0.33);
-    padding: 5px 10px;
+    border: 1px solid rgba(33, 33, 33, 0.33);
+    padding: 8px 15px;
     border-radius: 2px;
     font-size: 14px;
 }
 
+.title-comments .new-comment form input[type='email']::-webkit-input-placeholder,
 .title-comments .new-comment form input[type='text']::-webkit-input-placeholder {
-    color: #c9c9c9;
-}
-
-.title-comments .new-comment form textarea {
-    width: 60%;
-    margin-bottom: 10px;
-    border: 1px solid rgba(7, 111, 138, 0.33);
-    padding: 5px 10px;
-    border-radius: 2px;
-    font-size: 14px;
-    min-height: 100px;
-    resize: none;
-}
-
-.title-comments .new-comment form textarea::-webkit-input-placeholder {
-    color: #c9c9c9;
+    color: #a2a2a2;
 }
 
 .title-comments .new-comment form input[type='submit'] {
-    background-color: rgba(6, 129, 160, 0.48);
-    border: 1px solid rgba(6, 129, 160, 0.43);
+    background-color: rgb(100, 134, 165);
     font-size: 14px;
-    padding: 2px 10px;
+    padding: 5px 25px;
     color: #ffffff;
     border-radius: 2px;
+    border: none;
+    font-weight: bold;
 }
 
 .title-comments .new-comment form input[type='submit']:hover {
-    background-color: rgba(6, 129, 160, 0.64);
+    background-color: rgb(74, 101, 125);
     color: #fff;
+    cursor: pointer;
 }
 
 .comments-content {
@@ -410,7 +413,7 @@ footer p {
 
 .comments-content .btn-primary {
     border: none;
-    background-color: rgb(91, 127, 160);
+    background-color: rgb(51, 105, 136);
     width: 100%;
     color: #f7f7f7;
     padding-bottom: 7px;
@@ -423,7 +426,7 @@ footer p {
 }
 
 .comments-content .btn-primary:hover {
-    background-color: rgb(92, 105, 138);
+    background-color: rgb(43, 85, 113);
     cursor: pointer;
 }
 

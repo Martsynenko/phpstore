@@ -100,7 +100,7 @@ class UrlData
         $adminUrl = strrpos($baseUrl, self::ADMIN_SUB_URL);
 
         if ($adminUrl === false) {
-            return $baseUrl;
+            return ltrim($baseUrl, '/');
         }
 
         $url = substr($baseUrl, 18);

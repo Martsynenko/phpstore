@@ -48,9 +48,7 @@ class ArticleController extends Controller
             $article->setText($textArticle);
             $article->setUrl($urlData->getUrl());
 
-            $dataArticle = ['article' => $article];
-
-            return $this->render('admin/article/index.html.twig', $dataArticle);
+            return $this->render('admin/article/index.html.twig', ['article' => $article]);
         } elseif ($articleId == 0) {
             return $this->render('admin/article/index.html.twig', []);
         }
