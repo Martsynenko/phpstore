@@ -18,6 +18,43 @@
     color: #ffffff;
 }
 
+.text-error {
+    overflow: hidden;
+    height: 0;
+    opacity: 0;
+    font-size: 12px;
+    color: rgba(205, 2, 2, 0.71);
+    font-style: italic;
+}
+
+/*.form-error-message-name {*/
+    /*overflow: hidden;*/
+    /*height: 0;*/
+    /*opacity: 0;*/
+    /*font-size: 12px;*/
+    /*color: rgba(205, 2, 2, 0.71);*/
+    /*font-style: italic;*/
+/*}*/
+
+/*.form-error-message-email {*/
+    /*overflow: hidden;*/
+    /*height: 0;*/
+    /*opacity: 0;*/
+    /*font-size: 12px;*/
+    /*color: rgba(205, 2, 2, 0.71);*/
+    /*font-style: italic;*/
+/*}*/
+
+/*.form-error-message-text {*/
+    /*overflow: hidden;*/
+    /*height: 0;*/
+    /*opacity: 0;*/
+    /*font-size: 12px;*/
+    /*color: rgba(205, 2, 2, 0.71);*/
+    /*font-style: italic;*/
+    /*margin-bottom: -10px;*/
+/*}*/
+
 h1, h2, h3, h4, h5, h6, p, ul {
     margin: 0;
     padding: 0;
@@ -307,6 +344,7 @@ footer p {
 .title-comments h6 {
     font-size: 20px;
     color: #616161;
+    margin-top: 3px;
 }
 
 .title-comments h6 .fa-comments {
@@ -321,6 +359,7 @@ footer p {
 
 .title-comments h6 span.title {
     color: #616161;
+    font-weight: bold;
 }
 
 .title-comments button {
@@ -332,6 +371,7 @@ footer p {
     padding: 3px 15px;
     font-size: 14px;
     float: right;
+    font-weight: bold;
 }
 
 .title-comments button:hover {
@@ -345,6 +385,19 @@ footer p {
     display: none;
     margin-top: 10px;
     width: 100%;
+}
+
+.title-comments .new-comment .fa-times-circle {
+    display: none;
+    color: #cecece;
+    font-size: 19px;
+    margin-left: -35px;
+    margin-bottom: -2px;
+}
+
+.title-comments .new-comment .fa-times-circle:hover {
+    color: #a2a2a2;
+    cursor: pointer;
 }
 
 .title-comments .new-comment form input[type='text'],

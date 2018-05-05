@@ -5,13 +5,28 @@ $.LoadingOverlaySetup({
     imageColor      : "#ffcc00"
 });
 
-$(document)
-    .ajaxStart(function () {
-        $.LoadingOverlay('show', {
-            image       : "",
-            fontawesome : "fas fa-circle-notch fa-spin"
-        }, 60000);
-    })
-    .ajaxStop(function () {
-        $.LoadingOverlay('hide');
-    });
+// $(document)
+//     .ajaxStart(function () {
+//         $.LoadingOverlay('show', {
+//             image       : "",
+//             fontawesome : "fas fa-circle-notch fa-spin"
+//         }, 60000);
+//     })
+//     .ajaxStop(function () {
+//         $.LoadingOverlay('hide');
+//     });
+
+function loadingOverlayStart() {
+    $.LoadingOverlay('show', {
+        image       : "",
+        fontawesome : "fas fa-circle-notch fa-spin"
+    }, 60000);
+}
+
+function loadingOverlayStop() {
+    $.LoadingOverlay('hide');
+}
+
+function validateForm(form) {
+
+}

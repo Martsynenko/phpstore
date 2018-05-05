@@ -63,16 +63,21 @@
                             {#</div>#}
                             <div class="clearfix"></div>
                             <div class="new-comment">
-                                <form>
+                                <form method="post">
                                     <input type="hidden" class="hidden-article-id" name="articleId" value="{{ article.id }}"/>
                                     <ul>
                                         <li>
+                                            <p class="text-error form-error-message-name"></p>
                                             <input type="text" placeholder="Вашe имя" class="comment-user-name"/>
+                                            <span class="wrap-clear-btn-name"><i class="fas fa-times-circle btn-clear-name"></i></span>
                                         </li>
                                         <li>
+                                            <p class="text-error form-error-message-email"></p>
                                             <input type="email" placeholder="Ваш email" class="comment-user-email"/>
+                                            <span class="wrap-clear-btn-email"><i class="fas fa-times-circle btn-clear-email"></i></span>
                                         </li>
                                         <li>
+                                            <p class="text-error form-error-message-text"></p>
                                             <div id="trumbowyg-demo" placeholder="Напишите свой комментарий здесь..." class="comment-text"></div>
                                         </li>
                                         <li>
