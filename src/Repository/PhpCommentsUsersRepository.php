@@ -14,21 +14,35 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class PhpCommentsUsersRepository extends ServiceEntityRepository
 {
+    const VERIFICATION_STATUS_YES = 'yes';
+    const VERIFICATION_STATUS_NO = 'no';
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, PhpCommentsUsers::class);
     }
 
-    /*
-    public function findBySomething($value)
+    public function getLastInsertUser()
     {
-        return $this->createQueryBuilder('p')
-            ->where('p.something = :value')->setParameter('value', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('pcu')
+            ->select('MAX(pcu.id) as id')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getSingleScalarResult();
     }
-    */
+
+    /**
+     * @param int $userId
+     * @param string $status
+     */
+    public function updateUserStatusVerification($userId, $status)
+    {
+        $stmt = 'UPDATE `php_comments_users` SET `verification_status` = :status WHERE `id` = :userId';
+
+        $params = [
+            'status' => $status,
+            'userId' => $userId
+        ];
+
+        $this->_em->getConnection()->executeQuery($stmt, $params);
+    }
 }

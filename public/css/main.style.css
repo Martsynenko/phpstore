@@ -216,10 +216,12 @@ header .header-row .logo h2 {
 
 .top-bread-crumb .total-articles-bread-crumb {
     float: right;
-    background-color: #ababab;
     padding: 2px 15px;
     border-radius: 2px;
-    color: #fff;
+    border: 1px solid #e6e6e6;
+    color: #929292;
+    font-size: 16px;
+    background-color: #fbfbfb;
 }
 
 .top-bread-crumb .total-articles-bread-crumb span {
@@ -344,7 +346,7 @@ footer p {
 .title-comments h6 {
     font-size: 20px;
     color: #616161;
-    margin-top: 3px;
+    margin-top: 6px;
 }
 
 .title-comments h6 .fa-comments {
@@ -445,7 +447,7 @@ footer p {
     margin-right: 10px;
 }
 
-.comments-content .comments-content-item span.comment-user-name {
+.comments-content .comments-content-item span.comment-title-user-name {
     font-weight: bold;
 }
 
@@ -481,5 +483,84 @@ footer p {
 .comments-content .btn-primary:hover {
     background-color: rgb(43, 85, 113);
     cursor: pointer;
+}
+
+.comments-content .notice-no-comment {
+    font-weight: bold;
+    color: #a7a7a7;
+}
+
+.notice-new-comment-success {
+    display: none;
+    background-color: #fafaff;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    border: 1px solid #eaeaea;
+}
+
+.notice-new-comment-success p {
+    color: #636363;
+    /*font-weight: bold;*/
+    font-size: 14px;
+}
+
+.notice-new-comment-success p span {
+    color: #e60000;
+    font-weight: bold;
+}
+
+.notice-new-comment-error {
+    display: none;
+    background-color: #ffcccc;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    border: 1px solid #f2c0c0;
+    position: relative;
+}
+
+.notice-new-comment-error .fa-exclamation-circle {
+    font-size: 20px;
+    position: absolute;
+    top: 18px;
+    color: #961e1e;
+}
+
+.notice-new-comment-error p {
+    color: #c61211;
+    font-weight: bold;
+    font-size: 14px;
+    display: inline-block;
+    padding-left: 30px;
+}
+
+/* REGISTRATION PAGE */
+
+.verification-notice {
+    margin: 20px 0;
+}
+
+.verification-notice p {
+    margin-bottom: 20px;
+}
+
+.verification-notice a {
+    color: #1495ca;
+}
+
+/* 404 PAGE NOT FOUND */
+.no-page {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.no-page h1 {
+    font-size: 75px;
+}
+
+.no-page p {
+    font-size: 30px;
+    color: #989898;
 }
 

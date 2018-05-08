@@ -27,6 +27,11 @@ class PhpCommentsUsers
     private $email;
 
     /**
+     * @ORM\Column(name="verification_status", type="string", columnDefinition="ENUM('yes', 'no')")
+     */
+    private $verificationStatus;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -72,5 +77,21 @@ class PhpCommentsUsers
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVerificationStatus()
+    {
+        return $this->verificationStatus;
+    }
+
+    /**
+     * @param mixed $verificationStatus
+     */
+    public function setVerificationStatus($verificationStatus)
+    {
+        $this->verificationStatus = $verificationStatus;
     }
 }

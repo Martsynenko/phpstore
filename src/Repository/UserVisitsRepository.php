@@ -29,4 +29,40 @@ class UserVisitsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @param $clientIp
+     * @param $date
+     * @return bool
+     */
+    public function checkUserVisit($clientIp, $date)
+    {
+        $stmt = 'SELECT `id` FROM `user_visits` uv 
+                 WHERE uv.ip = :clientIp AND uv.date = :date';
+
+        $params = [
+            'clientIp' => $clientIp,
+            'date' => $date
+        ];
+
+        $id = $this->getEntityManager()->getConnection()->executeQuery($stmt, $params)->fetchColumn();
+
+        if ($id) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function insertUserVisit($clientIp, $date)
+    {
+        $stmt = 'INSERT INTO `user_visits` (`id`, `ip`, `date`) VALUES (NULL, :clientIp, :date)';
+
+        $params = [
+            'clientIp' => $clientIp,
+            'date' => $date
+        ];
+
+        $this->getEntityManager()->getConnection()->executeQuery($stmt, $params);
+    }
 }

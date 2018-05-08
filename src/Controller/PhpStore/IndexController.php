@@ -8,6 +8,7 @@
 
 namespace App\Controller\PhpStore;
 
+use App\Services\VisitService\VisitService;
 use App\Repository\PhpArticlesRepository;
 use App\Services\CounterService\CounterService;
 use App\Services\NavigationService\ArticleNavigationService;
@@ -26,6 +27,7 @@ class IndexController extends Controller
      * @Route("/{page}", requirements={"page"="\w+"}, name="home")
      * @param string $page
      * @param Request $request
+     * @param VisitService $visitService
      * @param CounterService $counterService
      * @param ArticleNavigationService $articleNavigationService
      * @param ArticlePaginationService $articlePaginationService
@@ -35,12 +37,15 @@ class IndexController extends Controller
     public function index(
         $page = 'page1',
         Request $request,
+        VisitService $visitService,
         CounterService $counterService,
         ArticleNavigationService $articleNavigationService,
         ArticlePaginationService $articlePaginationService,
         PhpArticlesRepository $phpArticlesRepository
     )
     {
+        $visitService->updateVisit();
+
         $page = substr($page, 4);
         $countBreadcrumbArticles = $counterService->getBreadcrumbCountArticles();
 

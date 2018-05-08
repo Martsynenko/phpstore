@@ -63,7 +63,19 @@
                             {#</div>#}
                             <div class="clearfix"></div>
                             <div class="new-comment">
+                                <div class="notice-new-comment-success">
+                                    <p>Ваш комментарий будет опубликован после подтверждения email адреса.
+                                        На Ваш почтовый адрес было отправлено письмо с подтверждением.
+                                        Все что Вам нужно сделать это перейти по ссылке в письме.<br>
+                                        <span>Данное действие необходимо произвести лишь один раз! Ваш email адрес не будет виден на сайте!</span>
+                                    </p>
+                                </div>
+                                <div class="notice-new-comment-error">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <p>xм... чтото пошло не так. Возможно вы ввели некорректный email или ваш аккаунт был заблокирован!</p>
+                                </div>
                                 <form method="post">
+                                    <input type="hidden" class="hidden-current-url" name="currentUrl" value="{{ article.url }}"/>
                                     <input type="hidden" class="hidden-article-id" name="articleId" value="{{ article.id }}"/>
                                     <ul>
                                         <li>
@@ -94,16 +106,17 @@
             <div class="row">
                 <div class="col-md-9">
                     <div class="comments-content">
+                        {#<p class="notice-no-comment">У этой статьи еще нет комментариев! Будьте первым и оставьте свой отзыв или задайте свой вопрос!</p>#}
                         <div class="comments-content-item">
                             <img src="{{ asset('img/no-avatar.png') }}" alt="1"/>
-                            <span class="comment-user-name">Александр</span>
+                            <span class="comment-title-user-name">Александр</span>
                             <i class="fas fa-ellipsis-h"></i>
                             <span class="comment-time">2018-09-01 в 9:20</span>
                             <p>Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum используют потому, что тот обеспечивает более или менее стандартное заполнение шаблона, а также реальное распределение букв и пробелов в абзацах, которое не получается при простой дубликации "Здесь ваш текст</p>
                         </div>
                         <div class="comments-content-item">
                             <img src="{{ asset('img/no-avatar.png') }}" alt="1"/>
-                            <span class="comment-user-name">Александр</span>
+                            <span class="comment-title-user-name">Александр</span>
                             <i class="fas fa-ellipsis-h"></i>
                             <span class="comment-time">2018-09-01 в 9:20</span>
                             <p>Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum используют потому, что тот обеспечивает более или менее стандартное заполнение шаблона, а также реальное распределение букв и пробелов в абзацах, которое не получается при простой дубликации "Здесь ваш текст</p>

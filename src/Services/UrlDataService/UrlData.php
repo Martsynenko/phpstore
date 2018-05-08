@@ -21,6 +21,7 @@ class UrlData
     const KEY_SECTION_ID = 'section_id';
 
     const ADMIN_SUB_URL = '/wde-master/admin/';
+    const HOME_URL = '/';
 
     /**
      * @var Request $request
@@ -62,6 +63,7 @@ class UrlData
 
         $urlDataArray = $this->prepareBaseUrlDataArray();
         $this->fillBaseUrlData($urlDataArray);
+        unset($this->phpUrlsRepository);
     }
 
     private function fillBaseUrlData($urlDataArray)
@@ -77,19 +79,15 @@ class UrlData
         $urlDataArray = [];
 
         $url = $this->prepareUrlForUrlData();
-        $section = $this->getSectionByUrl($url);
         $baseUrlData = $this->phpUrlsRepository->getUrlDataByUrl($url);
 
-        $urlDataArray[self::KEY_URL] = $url;
-        $urlDataArray[self::KEY_SECTION] = $section;
-
         if (!empty($baseUrlData)) {
-            /** @var PhpUrls $baseUrl */
             $baseUrl = current($baseUrlData);
         }
-        /** @var PhpUrls $baseUrl */
-        $urlDataArray[self::KEY_URL_ID] = $baseUrlData ? $baseUrl->getId() : null;
-        $urlDataArray[self::KEY_SECTION_ID] = $baseUrlData ? $baseUrl->getSectionId() : null;
+        $urlDataArray[self::KEY_URL] = $url;
+        $urlDataArray[self::KEY_URL_ID] = $baseUrl ? $baseUrl['id'] : null;
+        $urlDataArray[self::KEY_SECTION_ID] = $baseUrl ? $baseUrl['sectionId'] : null;
+        $urlDataArray[self::KEY_SECTION] = $baseUrl ? $baseUrl['section'] : null;
 
         return $urlDataArray;
     }
@@ -100,23 +98,15 @@ class UrlData
         $adminUrl = strrpos($baseUrl, self::ADMIN_SUB_URL);
 
         if ($adminUrl === false) {
+            if ($baseUrl === self::HOME_URL) {
+                return $baseUrl;
+            }
             return ltrim($baseUrl, '/');
         }
 
         $url = substr($baseUrl, 18);
 
         return $url;
-    }
-
-    /**
-     * @param string $url
-     * @return bool|string
-     */
-    private function getSectionByUrl($url)
-    {
-        $pos = strpos($url, '/');
-        $section = substr($url, 0, $pos);
-        return $section;
     }
 
     /**
@@ -181,5 +171,21 @@ class UrlData
     public function setSectionId(int $sectionId)
     {
         $this->sectionId = $sectionId;
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest(): Request
+    {
+        return $this->request;
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
     }
 }

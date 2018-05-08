@@ -30,7 +30,7 @@ $('.btn-new-comment').click(function(){
 });
 
 $('.btn-load-more-comments').click(function(){
-    // $('.btn-load-more-comments').addClass('running');
+    $('.btn-load-more-comments').addClass('running');
     // $.ajax({
     //
     // });
@@ -42,7 +42,36 @@ $('#trumbowyg-demo').trumbowyg({
 
 $('.btn-send-comment').click(function(){
     if (isValidName && isValidEmail && isValidText) {
-        alert('Send comment');
+        loadingOverlayStart();
+        var articleId = 'articleId=' + $('input.hidden-article-id').val();
+        var url = 'url=' + $('input.hidden-current-url').val();
+        var userName = 'userName=' + $('input.comment-user-name').val();
+        var userEmail = 'userEmail=' + $('input.comment-user-email').val();
+        var commentText = 'commentText=' + $('.comment-text').text();
+        $.ajax({
+            type: 'POST',
+            dataType: 'html',
+            data: articleId +
+            '&' + url +
+            '&' + userName +
+            '&' + userEmail +
+            '&' + commentText,
+            url: '/action/article/save-comment/',
+            success: function (data) {
+                var objData = $.parseJSON(data);
+                loadingOverlayStop();
+                if (objData.status == 'success') {
+                    $('.notice-new-comment-success').css({
+                        'display' : 'block'
+                    });
+                }
+                if (objData.status == 'error') {
+                    $('.notice-new-comment-error').css({
+                        'display' : 'block'
+                    });
+                }
+            }
+        });
     } else {
         var emptyValue = 'Поле не может быть пустым';
         if (!isValidName && !$('.comment-user-name').val()) {
@@ -74,22 +103,6 @@ $('.btn-send-comment').click(function(){
             });
         }
     }
-    // var articleId = 'articleId=' + $('input.hidden-article-id').val();
-    // var userName = 'userName=' + $('input.comment-user-name').val();
-    // var userEmail = 'userEmail=' + $('input.comment-user-email').val();
-    // var commentText = 'commentText=' + $('.comment-text').text();
-    // $.ajax({
-    //     type: 'POST',
-    //     dataType: 'html',
-    //     data: articleId +
-    //     '&' + userName +
-    //     '&' + userEmail +
-    //     '&' + commentText,
-    //     url: '/action/article/save-comment/',
-    //     success: function (data) {
-    //         alert(data);
-    //     }
-    // });
     return false;
 });
 

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\PhpSections;
 use App\Entity\PhpUrls;
 use App\Entity\PhpUrlsArticles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -28,11 +29,12 @@ class PhpUrlsRepository extends ServiceEntityRepository
     public function getUrlDataByUrl($url)
     {
         return $this->createQueryBuilder('pu')
-            ->select()
+            ->select('pu.id, pu.url, pu.sectionId, ps.section')
+            ->join(PhpSections::class, 'ps', Join::WITH, 'pu.sectionId = ps.id')
             ->where('pu.url = :url')
             ->setParameter('url', $url)
             ->getQuery()
-            ->getResult();
+            ->getArrayResult();
     }
 
     public function deleteUrlByArticleId($articleId)

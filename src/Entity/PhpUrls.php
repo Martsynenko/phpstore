@@ -27,6 +27,29 @@ class PhpUrls
      */
     private $sectionId;
 
+//    /**
+//     * @ORM\ManyToOne(targetEntity="PhpSections")
+//     * @ORM\JoinColumn(name="section_id", referencedColumnName="id")
+//     * @ORM\Column(name="section", type="string")
+//     */
+//    private $section;
+//
+//    /**
+//     * @return mixed
+//     */
+//    public function getSection()
+//    {
+//        return $this->section;
+//    }
+//
+//    /**
+//     * @param mixed $section
+//     */
+//    public function setSection($section)
+//    {
+//        $this->section = $section;
+//    }
+
     /**
      * @return mixed
      */

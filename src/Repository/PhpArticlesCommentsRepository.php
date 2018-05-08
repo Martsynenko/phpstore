@@ -74,4 +74,9 @@ class PhpArticlesCommentsRepository extends ServiceEntityRepository
         $this->_em->getConnection()->executeQuery($stmt, $params);
     }
 
+    public function getCommentsByArticleId($articleId)
+    {
+
+    }
+
 }

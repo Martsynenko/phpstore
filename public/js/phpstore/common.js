@@ -20,7 +20,7 @@ function loadingOverlayStart() {
     $.LoadingOverlay('show', {
         image       : "",
         fontawesome : "fas fa-circle-notch fa-spin"
-    }, 60000);
+    }, 5000);
 }
 
 function loadingOverlayStop() {

@@ -9,6 +9,7 @@
 namespace App\Controller\PhpStore;
 
 use App\Entity\PhpArticles;
+use App\Repository\PhpArticlesCommentsRepository;
 use App\Repository\PhpArticlesRepository;
 use App\Services\UrlDataService\UrlDataServices\ArticleUrlData;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,11 +23,13 @@ class ArticleController extends Controller
      * @Route("{articleUrl}", requirements={"articleUrl"="article/.+/"}, name="article")
      * @param ArticleUrlData $urlData
      * @param PhpArticlesRepository $phpArticlesRepository
+     * @param PhpArticlesCommentsRepository $phpArticlesCommentsRepository
      * @return Response
      */
     public function index(
         ArticleUrlData $urlData,
-        PhpArticlesRepository $phpArticlesRepository
+        PhpArticlesRepository $phpArticlesRepository,
+        PhpArticlesCommentsRepository $phpArticlesCommentsRepository
     )
     {
         $articleId = $urlData->getArticleId();
@@ -35,10 +38,14 @@ class ArticleController extends Controller
             $article = array_shift($article);
             $textArticle = htmlspecialchars_decode($article[PhpArticlesRepository::COLUMN_TEXT]);
             $article[PhpArticlesRepository::COLUMN_TEXT] = $textArticle;
+            $article[ArticleUrlData::KEY_URL] = $urlData->getUrl();
+
+            return $this->render('phpstore/article/article.html.twig', [
+                'article' => $article
+            ]);
+        } else {
+            return $this->render('phpstore/404.html.twig');
         }
-        return $this->render('phpstore/article/article.html.twig', [
-            'article' => $article
-        ]);
     }
 
     /**
