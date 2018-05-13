@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class IndexController extends Controller
 {
     /**
-     * @Route("wde-master/admin/index", name="admin-home")
+     * @Route("wde-master/admin/index/", name="admin-home")
      * @param SessionInterface $session
      * @param AuthValidationHelper $authValidationHelper
      * @param UserVisitsRepository $userVisitRepository

@@ -16,7 +16,7 @@ class LoginController extends Controller
     const SESSION_USER_ID = 'userId';
 
     /**
-     * @Route("/wde-master/admin/login", name="admin-login")
+     * @Route("/wde-master/admin/login/", name="admin-login")
      */
     public function index()
     {
@@ -24,7 +24,7 @@ class LoginController extends Controller
     }
 
     /**
-     * @Route("/wde-master/admin/auth", name="admin-auth")
+     * @Route("/wde-master/admin/auth/", name="admin-auth")
      * @param Request $request
      * @param SessionInterface $session
      * @param AuthValidationHelper $authValidationHelper
@@ -38,12 +38,12 @@ class LoginController extends Controller
     {
         $session->clear();
 
-        $login = $request->get(AdminUsersRepository::PROPERTY_LOGIN);
+        $email = $request->get(AdminUsersRepository::PROPERTY_EMAIL);
         $password = $request->get(AdminUsersRepository::PROPERTY_PASSWORD);
 
-        $userId = $authValidationHelper->checkIssetUser($login, $password);
+        $userId = $authValidationHelper->checkIssetUser($email, $password);
         if (!$userId) {
-            $this->addFlash('notice', 'Wrong name or password!!!');
+            $this->addFlash('notice', 'Wrong email or password!!!');
             return $this->redirectToRoute('admin-login');
         }
 
@@ -58,7 +58,7 @@ class LoginController extends Controller
     }
 
     /**
-     * @Route("/wde-master/admin/logout", name="admin-logout")
+     * @Route("/wde-master/admin/logout/", name="admin-logout")
      * @param SessionInterface $session
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */

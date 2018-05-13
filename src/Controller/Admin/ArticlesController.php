@@ -16,8 +16,8 @@ class ArticlesController extends Controller
     const ADMIN_LIMIT_ARTICLES = 30;
 
     /**
-     * @Route("wde-master/admin/articles/{page}", name="admin-articles", defaults={"page" = 1})
-     * @param int $page
+     * @Route("wde-master/admin/articles/", name="admin-articles")
+     * @param Request $request
      * @param SessionInterface $session
      * @param AuthValidationHelper $authValidationHelper
      * @param ArticleNavigationService $articleNavigationService
@@ -25,12 +25,17 @@ class ArticlesController extends Controller
      * @return Response
      */
     public function index(
-        $page = 1,
+        Request $request,
         SessionInterface $session,
         AuthValidationHelper $authValidationHelper,
         ArticleNavigationService $articleNavigationService,
         PhpArticlesRepository $phpArticlesRepository
     ) {
+        $page = $request->get('page');
+        if (!$page) {
+            $page = 1;
+        }
+
         $sessionKey = $session->get(LoginController::SESSION_SESSION_KEY);
         $userId = $session->get(LoginController::SESSION_USER_ID);
 

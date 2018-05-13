@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class AdminUsersRepository extends ServiceEntityRepository
 {
     const PROPERTY_ID = 'id';
-    const PROPERTY_LOGIN = 'login';
+    const PROPERTY_EMAIL = 'email';
     const PROPERTY_PASSWORD = 'password';
     const PROPERTY_SESSION_KEY = 'sessionKey';
 

@@ -23,19 +23,19 @@
                         <li class="li-block">
                             <p><label>Title</label></p>
                             <input type="text" class="seo-title ifield empty-input" placeholder="Type title here"
-                                {% if article is defined %} value="{{ article.seoTitle }}" {% endif %}
+                                {% if article is defined %} value="{{ article.seo_title }}" {% endif %}
                             />
                         </li>
                         <li class="li-block">
                             <p><label>Description</label></p>
                             <input type="text" class="seo-description ifield" placeholder="Type title here"
-                                {% if article is defined %} value="{{ article.seoDescription }}" {% endif %}
+                                {% if article is defined %} value="{{ article.seo_description }}" {% endif %}
                             />
                         </li>
                         <li class="li-block">
                             <p><label>Keywords</label></p>
                             <input type="text" class="seo-keywords ifield" placeholder="Type title here"
-                                {% if article is defined %} value="{{ article.seoKeywords }}" {% endif %}
+                                {% if article is defined %} value="{{ article.seo_keywords }}" {% endif %}
                             />
                         </li>
                         <li class="li-block">
@@ -93,5 +93,5 @@
 {% block javascript %}
     <script type="text/javascript" src="{{ asset('libs/jquery.magnific-popup.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('libs/jquery.nice-select.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/article/article.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/admin/article/article.js') }}"></script>
 {% endblock %}

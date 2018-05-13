@@ -8,10 +8,11 @@
 
 namespace App\Services\UrlDataService;
 
-interface UrlDataServiceInterface
+interface UrlDataInterface
 {
     /**
+     * @param $urlDataArray
      * @return array
      */
-    public function prepareUrlData();
+    public function prepareUrlData($urlDataArray);
 }

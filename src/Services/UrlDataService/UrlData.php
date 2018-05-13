@@ -8,105 +8,83 @@
 
 namespace App\Services\UrlDataService;
 
-use App\Entity\PhpUrls;
-use App\Repository\PhpUrlsRepository;
+use App\Services\UrlDataService\UrlDataBuilder\UrlDataBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class UrlData
+class UrlData implements UrlDataInterface
 {
-    const KEY_URL = 'url';
-    const KEY_URL_ID = 'url_id';
-    const KEY_SECTION = 'section';
-    const KEY_SECTION_ID = 'section_id';
-
     const ADMIN_SUB_URL = '/wde-master/admin/';
     const HOME_URL = '/';
 
     /**
      * @var Request $request
      */
-    protected $request;
-
-    /**
-     * @var PhpUrlsRepository $phpUrlsRepository
-     */
-    protected $phpUrlsRepository;
+    private $request;
 
     /**
      * @var string $url
      */
-    protected $url;
+    private $url;
 
     /**
      * @var int $urlId
      */
-    protected $urlId;
+    private $urlId;
 
     /**
      * @var string $section
      */
-    protected $section;
+    private $section;
 
     /**
      * @var int $sectionId
      */
-    protected $sectionId;
+    private $sectionId;
+
+    /**
+     * @var int $articleId
+     */
+    private $articleId;
 
     public function __construct(
-        RequestStack $request,
-        PhpUrlsRepository $phpUrlsRepository
-    )
-    {
-        $this->request = $request->getCurrentRequest();
-        $this->phpUrlsRepository = $phpUrlsRepository;
+        RequestStack $requestStack,
+        UrlDataBuilder $urlDataBuilder,
+        $urlDataArray = []
+    ) {
+        $request = $requestStack->getCurrentRequest();
+        $this->request = $request;
 
-        $urlDataArray = $this->prepareBaseUrlDataArray();
-        $this->fillBaseUrlData($urlDataArray);
-        unset($this->phpUrlsRepository);
-    }
-
-    private function fillBaseUrlData($urlDataArray)
-    {
-        $this->url = $urlDataArray[self::KEY_URL];
-        $this->urlId = $urlDataArray[self::KEY_URL_ID];
-        $this->section = $urlDataArray[self::KEY_SECTION];
-        $this->sectionId = $urlDataArray[self::KEY_SECTION_ID];
-    }
-
-    protected function prepareBaseUrlDataArray()
-    {
-        $urlDataArray = [];
-
-        $url = $this->prepareUrlForUrlData();
-        $baseUrlData = $this->phpUrlsRepository->getUrlDataByUrl($url);
-
-        if (!empty($baseUrlData)) {
-            $baseUrl = current($baseUrlData);
-        }
-        $urlDataArray[self::KEY_URL] = $url;
-        $urlDataArray[self::KEY_URL_ID] = $baseUrl ? $baseUrl['id'] : null;
-        $urlDataArray[self::KEY_SECTION_ID] = $baseUrl ? $baseUrl['sectionId'] : null;
-        $urlDataArray[self::KEY_SECTION] = $baseUrl ? $baseUrl['section'] : null;
-
-        return $urlDataArray;
-    }
-
-    private function prepareUrlForUrlData()
-    {
-        $baseUrl = $this->request->getRequestUri();
-        $adminUrl = strrpos($baseUrl, self::ADMIN_SUB_URL);
-
-        if ($adminUrl === false) {
-            if ($baseUrl === self::HOME_URL) {
-                return $baseUrl;
-            }
-            return ltrim($baseUrl, '/');
+        if (empty($urlDataArray)) {
+            $urlDataArray = $urlDataBuilder->prepareUrlDataArray($request);
         }
 
-        $url = substr($baseUrl, 18);
+        $this->prepareUrlData($urlDataArray);
+    }
 
-        return $url;
+    public function prepareUrlData($urlDataArray)
+    {
+        $this->url = isset($urlDataArray[UrlDataBuilder::KEY_URL]) ? $urlDataArray[UrlDataBuilder::KEY_URL] : null;
+        $this->urlId = isset($urlDataArray[UrlDataBuilder::KEY_URL_ID]) ? $urlDataArray[UrlDataBuilder::KEY_URL_ID] : null;
+        $this->section = isset($urlDataArray[UrlDataBuilder::KEY_SECTION]) ? $urlDataArray[UrlDataBuilder::KEY_SECTION] : null;
+        $this->sectionId = isset($urlDataArray[UrlDataBuilder::KEY_SECTION_ID]) ? $urlDataArray[UrlDataBuilder::KEY_SECTION_ID] : null;
+        $this->articleId = isset($urlDataArray[UrlDataBuilder::KEY_ARTICLE_ID]) ? $urlDataArray[UrlDataBuilder::KEY_ARTICLE_ID] : null;
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest(): Request
+    {
+        return $this->request;
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
     }
 
     /**
@@ -174,18 +152,18 @@ class UrlData
     }
 
     /**
-     * @return Request
+     * @return int
      */
-    public function getRequest(): Request
+    public function getArticleId(): int
     {
-        return $this->request;
+        return $this->articleId;
     }
 
     /**
-     * @param Request $request
+     * @param int $articleId
      */
-    public function setRequest(Request $request)
+    public function setArticleId(int $articleId)
     {
-        $this->request = $request;
+        $this->articleId = $articleId;
     }
 }

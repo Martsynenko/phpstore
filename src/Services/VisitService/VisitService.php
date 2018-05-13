@@ -9,28 +9,23 @@
 namespace App\Services\VisitService;
 
 use App\Repository\UserVisitsRepository;
-use App\Services\VisitService\Types\ArticleType;
-use App\Services\VisitService\Types\TypeInterface;
+use App\Services\VisitService\VisitTypes\ArticleVisitType;
+use App\Services\VisitService\VisitTypes\VisitTypeInterface;
 use App\Services\UrlDataService\UrlData;
 
 class VisitService
 {
-    /** @var  TypeInterface[] $typeServices */
+    /** @var  VisitTypeInterface[] $typeServices */
     private $typeServices;
-
-    /** @var  UrlData $urlData */
-    private $urlData;
 
     /** @var  UserVisitsRepository $userVisitsRepository */
     private $userVisitsRepository;
 
     public function __construct(
-        UrlData $urlData,
         UserVisitsRepository $userVisitsRepository,
-        ArticleType $articleType
+        ArticleVisitType $articleType
     )
     {
-        $this->urlData = $urlData;
         $this->userVisitsRepository = $userVisitsRepository;
 
         $this->typeServices = [
@@ -38,19 +33,24 @@ class VisitService
         ];
     }
 
-    public function updateVisit()
+    /**
+     * @param UrlData $urlData
+     */
+    public function updateVisit(UrlData $urlData)
     {
-        $this->updateSiteVisit();
+        $this->updateSiteVisit($urlData->getRequest()->getClientIp());
 
-        $typeService = $this->defineTypeService();
-        if ($typeService instanceof TypeInterface) {
-            $typeService->updateVisit();
+        $typeService = $this->defineTypeService($urlData->getSection());
+        if ($typeService instanceof VisitTypeInterface) {
+            $typeService->updateVisit($urlData);
         }
     }
 
-    private function updateSiteVisit()
+    /**
+     * @param string $clientIp
+     */
+    private function updateSiteVisit($clientIp)
     {
-        $clientIp = $this->urlData->getRequest()->getClientIp();
         $date = date('Y-m-d');
 
         if ($this->userVisitsRepository->checkUserVisit($clientIp, $date)) {
@@ -60,8 +60,19 @@ class VisitService
         $this->userVisitsRepository->insertUserVisit($clientIp, $date);
     }
 
-    private function defineTypeService()
+    /**
+     * @param $section
+     * @return VisitTypeInterface|null
+     */
+    private function defineTypeService($section)
     {
-        return [];
+        /** @var VisitTypeInterface $typeService */
+        foreach ($this->typeServices as $typeService) {
+            if ($typeService->defineTypeServiceBySection($section)) {
+                return $typeService;
+            }
+        }
+
+        return null;
     }
 }

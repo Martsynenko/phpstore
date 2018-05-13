@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="btn-new-article">
-        <a href="{{ path('admin-article', {'articleUrl':'article/new/'}) }}">Новая публикация</a>
+        <a href="/wde-master/admin/article/">Новая публикация</a>
     </div>
     <div class="admin-articles-content">
         <table>
@@ -32,7 +32,7 @@
                     <span>{{ article.id }}</span>
                 </td>
                 <td>
-                    <span><a href="{{ path('admin-article', {'articleUrl': article.url}) }}">{{ article.title }}</a></span>
+                    <span><a href="/wde-master/admin/article/?articleId={{ article.id }}">{{ article.title }}</a></span>
                 </td>
                 <td class="table-article-td-date">
                     <span>{{ article.date }}</span>

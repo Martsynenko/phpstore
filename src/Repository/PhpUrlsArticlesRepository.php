@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\PhpUrlsArticles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -14,6 +15,8 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class PhpUrlsArticlesRepository extends ServiceEntityRepository
 {
+    const ENTITY_ARTICLE_ID = 'articleId';
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, PhpUrlsArticles::class);

@@ -13,16 +13,18 @@ class PhpArticlesVisitsRepository extends ServiceEntityRepository
         parent::__construct($registry, PhpArticlesVisits::class);
     }
 
-    /*
-    public function findBySomething($value)
+    /**
+     * @param int $articleId
+     */
+    public function updateVisitArticleByArticleId($articleId)
     {
-        return $this->createQueryBuilder('p')
-            ->where('p.something = :value')->setParameter('value', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $stmt = 'UPDATE `php_articles_visits` SET `visits` = `visits` + 1
+                 WHERE `article_id` = :articleId';
+
+        $params = [
+            'articleId' => $articleId
+        ];
+
+        $this->_em->getConnection()->executeQuery($stmt, $params);
     }
-    */
 }

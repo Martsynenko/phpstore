@@ -76,7 +76,17 @@ class PhpArticlesCommentsRepository extends ServiceEntityRepository
 
     public function getCommentsByArticleId($articleId)
     {
+        $stmt = 'SELECT pcu.name, pac.date, pac.comment FROM php_articles_comments pac
+                  JOIN php_comments_users pcu ON pac.comment_user_id = pcu.id
+                  WHERE pac.article_id = :articleId AND pcu.verification_status = :status
+                 ORDER BY pac.date DESC';
 
+        $params = [
+            'articleId' => $articleId,
+            'status' => PhpCommentsUsersRepository::VERIFICATION_STATUS_YES
+        ];
+
+        return $this->_em->getConnection()->executeQuery($stmt, $params)->fetchAll();
     }
 
 }

@@ -61,9 +61,18 @@ $('.btn-send-comment').click(function(){
                 var objData = $.parseJSON(data);
                 loadingOverlayStop();
                 if (objData.status == 'success') {
+                    console.log(objData.message);
+                    $('.notice-new-comment-success p').text(objData.message);
                     $('.notice-new-comment-success').css({
                         'display' : 'block'
                     });
+                    $('.comments-content').append('<div class="comments-content-item">\n' +
+                        '<img src="{{ asset(\'img/no-avatar.png\') }}" alt="1"/>\n' +
+                        '<span class="comment-title-user-name">' + userName + '</span>\n' +
+                        '<i class="fas fa-ellipsis-h"></i>\n' +
+                        '<span class="comment-time">2000</span>\n' +
+                        '<p>' + commentText + '</p>\n' +
+                        '</div>');
                 }
                 if (objData.status == 'error') {
                     $('.notice-new-comment-error').css({

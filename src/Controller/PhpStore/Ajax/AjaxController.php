@@ -51,9 +51,14 @@ class AjaxController extends Controller
         /** @var PhpCommentsUsers $commentUser */
         $commentUser = array_shift($commentUsers);
         if ($commentUser instanceof PhpCommentsUsers) {
+            $responseMessage = 'Ваш комментарий опубликован!';
             $userId = $commentUser->getId();
             $phpArticlesCommentsRepository->insertArticleCommentByUserId($userId, $comment, $articleId);
         } else {
+            $responseMessage = 'Ваш комментарий будет опубликован после подтверждения email адреса.
+            На Ваш почтовый адрес было отправлено письмо с подтверждением.
+            Все что Вам нужно сделать это перейти по ссылке в письме.<br>
+            <span>Данное действие необходимо произвести лишь один раз! Ваш email адрес не будет виден на сайте!</span>';
             $phpArticlesCommentsRepository->insertArticleComment($userName, $userEmail, $comment, $articleId);
             $userId = $phpCommentsUsersRepository->getLastInsertUser();
             $url = $dataComment[self::KEY_URL];
@@ -81,7 +86,7 @@ class AjaxController extends Controller
         }
 
 
-        return new JsonResponse(['status' => 'success', 'message' => '']);
+        return new JsonResponse(['status' => 'success', 'message' => $responseMessage]);
     }
 }
 

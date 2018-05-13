@@ -8,7 +8,6 @@ use App\Entity\PhpUrls;
 use App\Entity\PhpUrlsArticles;
 use App\Repository\PhpArticlesRepository;
 use App\Repository\PhpUrlsRepository;
-use App\Services\UrlDataService\UrlDataServices\ArticleUrlData;
 use App\ValidationHelper\AuthValidationHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,20 +19,20 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class ArticleController extends Controller
 {
     /**
-     * @Route("/wde-master/admin/{articleUrl}", requirements={"articleUrl"="article/.+/"}, name="admin-article")
-     * @param ArticleUrlData $urlData
+     * @Route("/wde-master/admin/article/", name="admin-article")
+     * @param Request $request
      * @param SessionInterface $session
      * @param AuthValidationHelper $authValidationHelper
      * @param PhpArticlesRepository $phpArticlesRepository
      * @return Response
      */
     public function index(
-        ArticleUrlData $urlData,
+        Request $request,
         SessionInterface $session,
         AuthValidationHelper $authValidationHelper,
         PhpArticlesRepository $phpArticlesRepository
     ) {
-        $articleId = $urlData->getArticleId();
+        $articleId = $request->get('articleId');
         $sessionKey = $session->get(LoginController::SESSION_SESSION_KEY);
         $userId = $session->get(LoginController::SESSION_USER_ID);
 
@@ -42,11 +41,12 @@ class ArticleController extends Controller
         }
 
         if ($articleId) {
-            /** @var PhpArticles $article */
-            $article = $phpArticlesRepository->find($articleId);
-            $textArticle = htmlspecialchars_decode($article->getText());
-            $article->setText($textArticle);
-            $article->setUrl($urlData->getUrl());
+            $article = $phpArticlesRepository->getAdminFullArticleDataByArticleId($articleId);
+            if ($article) {
+                $article = array_shift($article);
+                $textArticle = htmlspecialchars_decode($article['text']);
+                $article['text'] = $textArticle;
+            }
 
             return $this->render('admin/article/index.html.twig', ['article' => $article]);
         } elseif ($articleId == 0) {
