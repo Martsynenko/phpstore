@@ -41,8 +41,8 @@ $('#trumbowyg-demo').trumbowyg({
 });
 
 $('.btn-send-comment').click(function(){
+    loadingOverlayStart();
     if (isValidName && isValidEmail && isValidText) {
-        loadingOverlayStart();
         var articleId = 'articleId=' + $('input.hidden-article-id').val();
         var url = 'url=' + $('input.hidden-current-url').val();
         var userName = 'userName=' + $('input.comment-user-name').val();

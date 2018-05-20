@@ -12,57 +12,6 @@ $(document).ready(function() {
         return text.replace(/[&<>"']/g, function(m) { return map[m]; });
     }
 
-    function showPopupSuccessMessage() {
-        $('#overlay').fadeIn(400, // снaчaлa плaвнo пoкaзывaем темную пoдлoжку
-            function(){ // пoсле выпoлнения предъидущей aнимaции
-                $('#popup-success-notice')
-                    .css('display', 'block') // убирaем у мoдaльнoгo oкнa display: none;
-                    .animate({opacity: 1, top: '50%'}, 200); // плaвнo прибaвляем прoзрaчнoсть oднoвременнo сo съезжaнием вниз
-            });
-    }
-
-    /* Зaкрытие мoдaльнoгo oкнa, тут делaем тo же сaмoе нo в oбрaтнoм пoрядке */
-    $('#overlay').click( function(){ // лoвим клик пo крестику или пoдлoжке
-        $('#popup-success-notice')
-            .animate({opacity: 0, top: '45%'}, 200,  // плaвнo меняем прoзрaчнoсть нa 0 и oднoвременнo двигaем oкнo вверх
-                function(){ // пoсле aнимaции
-                    $(this).css('display', 'none'); // делaем ему display: none;
-                    $('#overlay').fadeOut(400); // скрывaем пoдлoжку
-                }
-            );
-    });
-
-    /* Зaкрытие мoдaльнoгo oкнa, тут делaем тo же сaмoе нo в oбрaтнoм пoрядке */
-    $('.btn-close-modal').click( function(){ // лoвим клик пo крестику или пoдлoжке
-        $('#popup-success-notice')
-            .animate({opacity: 0, top: '45%'}, 200,  // плaвнo меняем прoзрaчнoсть нa 0 и oднoвременнo двигaем oкнo вверх
-                function(){ // пoсле aнимaции
-                    $(this).css('display', 'none'); // делaем ему display: none;
-                    $('#overlay').fadeOut(400); // скрывaем пoдлoжку
-                }
-            );
-    });
-
-
-    $.LoadingOverlaySetup({
-        color           : "rgba(0, 0, 0, 0.4)",
-        maxSize         : "25px",
-        minSize         : "25px",
-        resizeInterval  : 0,
-        size            : "25%"
-    });
-
-    $(document)
-        .ajaxStart(function () {
-            $.LoadingOverlay('show', {
-                image       : "",
-                fontawesome : "fas fa-circle-notch fa-spin"
-            }, 60000);
-        })
-        .ajaxStop(function () {
-            $.LoadingOverlay('hide');
-        });
-
     $(function() {
         $('.wide').niceSelect();
         $('.nice-select').css({
@@ -118,7 +67,7 @@ $(document).ready(function() {
             form.find('.ifield').addClass('empty-input');
 
             function lightEmpty(){
-                form.find('.empty-input').css({'border-color':'#ff473a'});
+                form.find('.empty-input').css({'border-color':'#c91700'});
                 // Через полсекунды удаляем подсветку
                 setTimeout(function(){
                     form.find('.empty-input').removeAttr('style');
@@ -139,7 +88,7 @@ $(document).ready(function() {
 
             btnSave.click(function(){
                 checkInput();
-                var sizeEmpty = form.find('.empty-input').size();
+                var sizeEmpty = form.find('.empty-input').length;
                 // Вешаем условие-тригер на кнопку отправки формы
                 if(sizeEmpty > 0){
                     if(!btnSave.hasClass('disabled')){
@@ -153,6 +102,7 @@ $(document).ready(function() {
                     lightEmpty();
                     return false;
                 } else {
+                    loadingOverlayStart();
                     var articleUrl = 'articleUrl=' + $('input.seo-url').val();
                     var articleId = 'articleId=' + $('input.article-id').val();
                     var seoTitle = 'seoTitle=' + $('input.seo-title').val();
@@ -174,10 +124,39 @@ $(document).ready(function() {
                         '&' + titleArticle +
                         '&' + textArticle +
                         '&' + tagsArticle,
-                        url: '/wde-master/admin/article/save',
+                        url: '/wde-master/admin/action/article/save/',
                         success: function (articleId) {
+                            loadingOverlayStop();
                             $('input.article-id').val(articleId);
-                            showPopupSuccessMessage();
+                            $.alert({
+                                icon: 'far fa-check-circle',
+                                title: 'Success!',
+                                content: 'Изменения успешно сохранены!',
+                                type: 'green',
+                                typeAnimated: true,
+                                buttons: {
+                                    close: {
+                                        text: 'close',
+                                        btnClass: 'btn-green'
+                                    }
+                                }
+                            });
+                        },
+                        error: function() {
+                            loadingOverlayStop();
+                            $.alert({
+                                icon: 'fas fa-exclamation-circle',
+                                title: 'Error!',
+                                content: 'Ajax broken. Try later!',
+                                type: 'red',
+                                typeAnimated: true,
+                                buttons: {
+                                    close: {
+                                        text: 'close',
+                                        btnClass: 'btn-red'
+                                    }
+                                }
+                            });
                         }
                     });
                 }
@@ -191,30 +170,70 @@ $(document).ready(function() {
 
         btnDelete.click(function(){
             $.confirm({
+                icon: 'fas fa-exclamation-circle',
                 title: 'Удаление статьи!',
                 content: 'Вы уверены что хотите удалить статью???',
+                type: 'orange',
+                typeAnimated: true,
                 buttons: {
-                    confirm: function () {
-                        var articleId = 'articleId=' + $('input.article-id').val();
-                        $.ajax({
-                            type: 'POST',
-                            dataType: 'html',
-                            data: articleId,
-                            url: '/wde-master/admin/article/delete',
-                            success: function (data) {
-                                $.alert({
-                                    title:'Alert!',
-                                    content:'Article delete success'
-                                });
-                                window.location.href = '/wde-master/admin/articles'
-                            }
-                        });
+                    confirm: {
+                        text: 'confirm',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            loadingOverlayStart();
+                            var articleId = 'articleId=' + $('input.article-id').val();
+                            $.ajax({
+                                type: 'POST',
+                                dataType: 'html',
+                                data: articleId,
+                                url: '/wde-master/admin/action/article/delete/',
+                                success: function (data) {
+                                    loadingOverlayStop();
+                                    $.alert({
+                                        icon: 'far fa-check-circle',
+                                        title: 'Delete success!',
+                                        content: 'Статья успешно удалена!',
+                                        type: 'orange',
+                                        typeAnimated: true,
+                                        buttons: {
+                                            close: {
+                                                text: 'close',
+                                                btnClass: 'btn-orange'
+                                            }
+                                        }
+                                    });
+                                    window.location.href = '/wde-master/admin/articles/'
+                                }
+                            });
+                        }
                     },
-                    cancel: function () {
+                    cancel: {
+                        text: 'cancel',
+                        btnClass: 'btn-orange'
                     }
                 }
             });
             return false;
+        });
+    });
+
+    $(function(){
+        var seoTitle = $('.seo-title');
+        var lengthSeoTitle = $('.length-seo-title');
+        seoTitle.keyup(function(){
+            textLength = seoTitle.val().length;
+            resultLength = 80 - textLength;
+            lengthSeoTitle.text(resultLength);
+        });
+    });
+
+    $(function(){
+        var seoDescription = $('.seo-description');
+        var lengthSeoDescription = $('.length-seo-description');
+        seoDescription.keyup(function(){
+            textLength = seoDescription.val().length;
+            resultLength = 280 - textLength;
+            lengthSeoDescription.text(resultLength);
         });
     });
 });

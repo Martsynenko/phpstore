@@ -2,29 +2,41 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 12.02.2018
- * Time: 21:55
+ * Date: 19.05.2018
+ * Time: 15:01
  */
 
-namespace App\ValidationHelper;
+namespace App\Services\AuthorizationService;
 
+use App\Controller\Admin\LoginController;
 use App\Entity\AdminUsers;
 use App\Repository\AdminUsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Bundle\FrameworkBundle\Controller\ControllerTrait;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class AuthValidationHelper implements ValidationHelperInterface
+class AuthorizationService extends Controller implements AuthorizationServiceInterface
 {
-    use ContainerAwareTrait;
-    use ControllerTrait;
-    
+    /** @var EntityManagerInterface $em */
     protected $em;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    /** @var  SessionInterface $session */
+    protected $session;
+
+    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session)
     {
         $this->em = $entityManager;
+        $this->session = $session;
+    }
+
+    public function checkAuth()
+    {
+        $sessionKey = $this->session->get(LoginController::SESSION_SESSION_KEY);
+        $userId = $this->session->get(LoginController::SESSION_USER_ID);
+        if (!$this->checkAuthUser($userId, $sessionKey)) {
+            header("Location: http://phpstore.ua/wde-master/admin/login/"); /* Перенаправление браузера */
+            exit;
+        }
     }
 
     /**
@@ -59,7 +71,7 @@ class AuthValidationHelper implements ValidationHelperInterface
      * @param mixed $sessionKey
      * @return bool
      */
-    public function checkAuthUser($userId, $sessionKey)
+    private function checkAuthUser($userId, $sessionKey)
     {
         if (empty($sessionKey) || empty($userId)) {
             return false;
@@ -72,12 +84,5 @@ class AuthValidationHelper implements ValidationHelperInterface
         }
 
         return true;
-    }
-
-    public function checkAuth($userId, $sessionKey)
-    {
-        if (!$this->checkAuthUser($userId, $sessionKey)) {
-            return $this->redirectToRoute('admin-login');
-        }
     }
 }

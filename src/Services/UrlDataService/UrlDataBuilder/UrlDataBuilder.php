@@ -53,15 +53,16 @@ class UrlDataBuilder
 
         if (!empty($urlData)) {
             $urlData = current($urlData);
-        }
-        $urlDataArray[self::KEY_URL] = $url;
-        $urlDataArray[self::KEY_URL_ID] = $urlData['id'] ? $urlData['id'] : null;
-        $urlDataArray[self::KEY_SECTION_ID] = $urlData['sectionId'] ? $urlData['sectionId'] : null;
-        $urlDataArray[self::KEY_SECTION] = $urlData['sectionId'] ? $urlData['section'] : null;
 
-        $typeUrlData = $this->defineTypeUrlData($urlDataArray[self::KEY_SECTION]);
-        if ($typeUrlData instanceof TypeInterface) {
-            $urlDataArray = $typeUrlData->prepareUrlDataArray($urlDataArray);
+            $urlDataArray[self::KEY_URL] = $url;
+            $urlDataArray[self::KEY_URL_ID] = $urlData['id'] ? $urlData['id'] : null;
+            $urlDataArray[self::KEY_SECTION_ID] = $urlData['sectionId'] ? $urlData['sectionId'] : null;
+            $urlDataArray[self::KEY_SECTION] = $urlData['sectionId'] ? $urlData['section'] : null;
+
+            $typeUrlData = $this->defineTypeUrlData($urlDataArray[self::KEY_SECTION]);
+            if ($typeUrlData instanceof TypeInterface) {
+                $urlDataArray = $typeUrlData->prepareUrlDataArray($urlDataArray);
+            }
         }
 
         return $urlDataArray;

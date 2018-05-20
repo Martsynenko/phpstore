@@ -79,7 +79,7 @@
                                 <i class="fas fa-eye"></i><span>{{ article.visits }}</span>
                                 <i class="far fa-clock"></i><span>{{ article.date }}</span>
                             </div>
-                            <p>{{ article.text }} <a href="{{ path('article', {'articleUrl':article.url}) }}">Подробнее</a></p>
+                            <p>{{ article.text|raw }} <a href="{{ path('article', {'articleUrl':article.url}) }}">подробнее</a></p>
                         </div>
                         {% endfor %}
                     </div>

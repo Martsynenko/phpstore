@@ -99,6 +99,21 @@ pre {
     border-radius: 2px;
 }
 
+.notice-definition {
+    background-color: #eaeaea;
+    padding: 15px 20px;
+    color: #136788;
+    border-radius: 2px;
+    border: 1px solid #d8d8d8;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.notice-definition .fa-exclamation-circle {
+    font-size: 22px;
+    float: left;
+    margin-right: 10px;
+}
 
 
 /* HEADER */

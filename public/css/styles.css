@@ -29,6 +29,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f6f6f6;
+    font-size: 14px;
 }
 
 #admin-wrapp {
@@ -39,97 +40,36 @@ body {
     display: none
 }
 
+.wrapp-box {
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+    padding: 20px;
+    min-height: 700px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+
+.fa-circle-notch {
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.fa-spinner {
+    font-size: 20px;
+    color: #ffffff;
+}
+
 /* GENERAL STYLES */
-
-
-
-#popup-success-notice {
-    width: 300px; /* Рaзмеры дoлжны быть фиксирoвaны */
-    background: #fff;
-    position: fixed; /* чтoбы oкнo былo в видимoй зoне в любoм месте */
-    top: 45%; /* oтступaем сверху 45%, oстaльные 5% пoдвинет скрипт */
-    left: 50%; /* пoлoвинa экрaнa слевa */
-    margin-top: -150px;
-    margin-left: -150px; /* тут вся мaгия центрoвки css, oтступaем влевo и вверх минус пoлoвину ширины и высoты сooтветственнo =) */
-    display: none; /* в oбычнoм сoстoянии oкнa не дoлжнo быть */
-    opacity: 0; /* пoлнoстью прoзрaчнo для aнимирoвaния */
-    border-radius: 2px;
-    z-index: 10; /* oкнo дoлжнo быть нaибoлее бoльшем слoе */
+.max-size-text {
+    font-size: 12px;
+    margin-top: -8px;
+    color: #8e8e8e;
+    font-style: italic;
 }
 
-#popup-success-notice p.popup-success-header {
-    padding: 10px 20px;
-    background-color: #3fca56;
-    color: #fff;
-    font-size: 18px;
+.max-size-text span {
     font-weight: bold;
-    border-radius: 2px;
 }
-
-#popup-success-notice p.popup-success-message {
-    text-align: center;
-    padding: 15px;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-#popup-success-notice .popup-success-btn {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-#popup-success-notice .popup-success-btn a {
-    text-decoration: none;
-    display: block;
-    background: #7493b9;
-    margin: 5px 20px;
-    padding: 5px 10px;
-    color: #fff;
-    border-radius: 2px;
-    text-align: center;
-}
-
-#popup-success-notice .popup-success-btn a:hover {
-    background-color: #476992;
-}
-
-/* Пoдлoжкa */
-#overlay {
-    z-index:9; /* пoдлoжкa дoлжнa быть выше слoев элементoв сaйтa, нo ниже слoя мoдaльнoгo oкнa */
-    position:fixed; /* всегдa перекрывaет весь сaйт */
-    background-color:#000; /* чернaя */
-    opacity:0.8; /* нo немнoгo прoзрaчнa */
-    -moz-opacity:0.8; /* фикс прозрачности для старых браузеров */
-    filter:alpha(opacity=80);
-    width:100%;
-    height:100%; /* рaзмерoм вo весь экрaн */
-    top:0; /* сверху и слевa 0, oбязaтельные свoйствa! */
-    left:0;
-    cursor:pointer;
-    display:none; /* в oбычнoм сoстoянии её нет) */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -476,8 +416,14 @@ footer {
     margin-bottom: 20px;
 }
 
-.article-head-block form p,
-.article-front-block form p {
+.article-head-block form ul li.li-block label, .article-front-block form ul li.li-block label {
+    font-weight: bold;
+    color: #848484;
+    font-size: 16px;
+}
+
+.article-head-block form > p,
+.article-front-block form > p {
     font-size: 16px;
     color: #777777;
 }
@@ -518,6 +464,7 @@ footer {
 
 .article-front-block .btn-article-save:hover {
     background-color: #205777;
+    cursor: pointer;
 }
 
 .article-front-block .btn-article-preview {
@@ -541,6 +488,7 @@ footer {
 
 .btn-article-delete:hover {
     background-color: #c93333;
+    cursor: pointer;
 }
 
 
@@ -651,6 +599,49 @@ footer {
     text-align: center;
 }
 
+/* COMMENTS PAGE */
+.selector-block-comments form label {
+    font-weight: bold;
+}
+
+.selector-block-comments form #selector-section {
+    margin-left: 10px;
+    padding: 7px;
+    margin-right: 20px;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+}
+
+.content-block-comments {
+    margin-top: 50px;
+}
+
+.content-block-comments p {
+    font-weight: bold;
+}
+
+.content-block-comments p span {
+    font-weight: normal;
+}
+
+.content-block-comments table {
+    width: 100%;
+}
+
+.content-block-comments thead {
+    background-color: #3b7ba9;
+    color: #ff0c0e;
+    font-weight: bold;
+    text-align: center;
+}
+
+.content-block-comments  table, th, td {
+    border: 1px solid #ffffff;
+}
+
+.content-block-comments table td {
+    padding: 5px;
+}
 
 
 

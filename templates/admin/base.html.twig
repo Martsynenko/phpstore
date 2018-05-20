@@ -13,29 +13,35 @@
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}"/>
 
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/fontawesome-all.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/jquery-customselect.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/loading.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/loading-btn.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/jquery-confirm.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}"/>
+
     {# BOOTSTRAP #}
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    {#<!-- Latest compiled and minified CSS -->#}
+    {#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">#}
+    {#<!-- Optional theme -->#}
+    {#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">#}
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    {#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>#}
 
     {# TEXT EDITOR + FONTAWESOME#}
-    <!-- Include external CSS. -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+    {#<!-- Include external CSS. -->#}
+    {#<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />#}
+    {#<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">#}
     <!-- Include Editor style. -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.5/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.5/css/froala_style.min.css" rel="stylesheet" type="text/css" />
 
     {# CONFIRM PLUGIN #}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
-
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}"/>
+    {#<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">#}
 
     {# JQUERY #}
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    {#<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>#}
 
     {% block css %}{% endblock %}
 
@@ -72,9 +78,9 @@
                         <li>
                             <a href="{{ path('admin-comments') }}">Comments</a>
                         </li>
-                        <li>
-                            <a href="{{ path('admin-seo') }}">SEO</a>
-                        </li>
+                        {#<li>#}
+                            {#<a href="{{ path('admin-seo') }}">SEO</a>#}
+                        {#</li>#}
                     </ul>
                 </nav>
             </div>
@@ -122,15 +128,12 @@
 
 </div>
 
-<div id="popup-success-notice"><!-- Сaмo oкнo -->
-    <p class="popup-success-header"><i class="far fa-check-circle"></i> Success</p>
-    <p class="popup-success-message">Изменения успешно сохранены!</p>
-    <div class="popup-success-btn">
-        <a href="#" class="btn-close-modal">Назад к редактированию</a>
-        <a href="{{ path('admin-articles') }}">Вернуться ко всем статьям</a>
-    </div>
-</div>
-<div id="overlay"></div><!-- Пoдлoжкa -->
+
+<script src="{{ asset('libs/jquery.min.js') }}"></script>
+<script src="{{ asset('libs/bootstrap.min.js') }}"></script>
+<script src="{{ asset('libs/jquery-customselect.js') }}"></script>
+<script src="{{ asset('libs/loadingoverlay.js') }}"></script>
+<script src="{{ asset('libs/jquery-confirm.min.js') }}"></script>
 
 
 {# TEXT EDITOR + JQUERY + FONTAWESOME #}
@@ -141,16 +144,13 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.5/js/froala_editor.pkgd.min.js"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
-{# PRELOADER #}
-<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@1.6.0/src/loadingoverlay.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@1.6.0/extras/loadingoverlay_progress/loadingoverlay_progress.min.js"></script>
-
 {# DIAGRAMM #}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 
 {# CONFIRM PLUGIN #}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>#}
 
-{% block javascript %}<script type="text/javascript" src="{{ asset('js/admin/common.js') }}"></script>{% endblock %}
+<script type="text/javascript" src="{{ asset('js/admin/common.js') }}"></script>
+{% block javascript %}{% endblock %}
 </body>
 </html>

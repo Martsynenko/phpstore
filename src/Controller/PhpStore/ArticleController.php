@@ -40,6 +40,7 @@ class ArticleController extends Controller
             $article = $phpArticlesRepository->getFullArticleDataByArticleId($articleId);
             $article = array_shift($article);
             $textArticle = htmlspecialchars_decode($article[PhpArticlesRepository::COLUMN_TEXT]);
+            $textArticle = htmlspecialchars_decode($textArticle);
             $article[PhpArticlesRepository::COLUMN_TEXT] = $textArticle;
             $article['url'] = $urlData->getUrl();
 

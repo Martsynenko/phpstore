@@ -1,5 +1,53 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block content %}
-    <p>block comments</p>
+    <div class="wrapp-box">
+        <div class="selector-block-comments">
+            <form>
+                <label for="selector-section">Выбирите раздел</label>
+                <select id="selector-section" name="selector-section">
+                    <option>Home</option>
+                    <option>Article</option>
+                </select>
+                <label for="selector-element">Выбирите статью</label>
+                <select id="selector-element" name="selector-element" class="custom-select">
+                    <option value=''>None - Please Select</option>
+                    <option value='1'>abc</option>
+                    <option value='2'>bcd</option>
+                    <option value='3'>cde</option>
+                    <option value='4'>def</option>
+                    <option value='5'>efb</option>
+                    <option value='6'>efb</option>
+                    <option value='7'>efb</option>
+                    <option value='8'>efb</option>
+                    <option value='9'>efb</option>
+                </select>
+            </form>
+        </div>
+        <div class="content-block-comments">
+            <p>Всего комментариев: <span>12</span></p>
+            <table>
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Комментарий</td>
+                        <td>User</td>
+                        <td>Email</td>
+                        <td>Дата</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>ID</td>
+                    <td>Комментарий</td>
+                    <td>User</td>
+                    <td>Email</td>
+                    <td>Дата</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
+
+{% block javascript %}<script type="text/javascript" src="{{ asset('js/admin/comments/comments.js') }}"></script>{% endblock %}

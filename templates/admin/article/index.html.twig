@@ -16,18 +16,20 @@
                     <ul>
                         <li class="li-block">
                             <p><label>Url</label></p>
-                            <input type="text" class="seo-url ifield empty-input" placeholder="Type url here"
+                            <input type="text" class="seo-url ifield empty-input" placeholder="type article/ ..."
                                     {% if article is defined %} value="{{ article.url }}" {% endif %}
                             />
                         </li>
                         <li class="li-block">
                             <p><label>Title</label></p>
+                            <p class="max-size-text">Осталось символов <span class="length-seo-title">80</span></p>
                             <input type="text" class="seo-title ifield empty-input" placeholder="Type title here"
                                 {% if article is defined %} value="{{ article.seo_title }}" {% endif %}
                             />
                         </li>
                         <li class="li-block">
                             <p><label>Description</label></p>
+                            <p class="max-size-text">Осталось символов <span class="length-seo-description">280</span></p>
                             <input type="text" class="seo-description ifield" placeholder="Type title here"
                                 {% if article is defined %} value="{{ article.seo_description }}" {% endif %}
                             />
