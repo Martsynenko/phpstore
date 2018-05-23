@@ -236,4 +236,30 @@ $(document).ready(function() {
             lengthSeoDescription.text(resultLength);
         });
     });
+
+    $(function(){
+        $('.btn-add-notice-definition').click(function(){
+            var containerNotice = '&lt;div class=&quot;notice-definition&quot;&gt;' +
+                '&lt;i class=&quot;fas fa-exclamation-circle&quot;&gt;&lt;/i&gt;' +
+                '&lt;/div&gt;';
+            $('textarea.textarea-text-article').froalaEditor('html.insert', containerNotice, false);
+            return false;
+        });
+    });
+
+    $(function(){
+        $('.btn-add-code').click(function(){
+            var containerCode = '&lt;pre&gt;&lt;/pre&gt;';
+            $('textarea.textarea-text-article').froalaEditor('html.insert', containerCode, false);
+            return false;
+        });
+    });
+
+    $(function(){
+        $('.btn-add-console').click(function(){
+            var containerConsole = '&lt;pre class=&quot;console&quot;&gt;&lt;/pre&gt;';
+            $('textarea.textarea-text-article').froalaEditor('html.insert', containerConsole, false);
+            return false;
+        });
+    });
 });

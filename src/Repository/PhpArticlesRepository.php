@@ -13,6 +13,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class PhpArticlesRepository extends ServiceEntityRepository
 {
     const COLUMN_TEXT = 'text';
+    const COLUMN_STATUS = 'status';
 
     public function __construct(RegistryInterface $registry)
     {
@@ -51,6 +52,8 @@ class PhpArticlesRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('pa')
             ->select('count(pa.id) as countArticles')
+            ->where('pa.status = :status')
+            ->setParameter('status', PhpArticles::STATUS_PUBLISHED)
             ->getQuery()
             ->getArrayResult();
     }
@@ -69,6 +72,8 @@ class PhpArticlesRepository extends ServiceEntityRepository
             )
             ->setFirstResult($offset)
             ->setMaxResults($limit)
+            ->where('pa.status = :status')
+            ->setParameter('status', PhpArticles::STATUS_PUBLISHED)
             ->getQuery()
             ->getArrayResult();
     }

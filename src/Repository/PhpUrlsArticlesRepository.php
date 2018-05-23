@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\PhpArticles;
 use App\Entity\PhpUrlsArticles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr\Join;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -29,7 +31,8 @@ class PhpUrlsArticlesRepository extends ServiceEntityRepository
     public function getArticleIdByUrlId($urlId)
     {
         return $this->createQueryBuilder('pua')
-            ->select('pua.articleId')
+            ->select('pua.articleId, pa.status')
+            ->join(PhpArticles::class, 'pa', Join::WITH, 'pa.id = pua.articleId')
             ->where('pua.urlId = :urlId')
             ->setParameter('urlId', $urlId)
             ->getQuery()

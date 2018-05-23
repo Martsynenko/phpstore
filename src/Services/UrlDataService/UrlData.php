@@ -47,6 +47,11 @@ class UrlData implements UrlDataInterface
      */
     private $articleId;
 
+    /**
+     * @var string $status
+     */
+    private $status;
+
     public function __construct(
         RequestStack $requestStack,
         UrlDataBuilder $urlDataBuilder,
@@ -68,7 +73,8 @@ class UrlData implements UrlDataInterface
         $this->urlId = isset($urlDataArray[UrlDataBuilder::KEY_URL_ID]) ? $urlDataArray[UrlDataBuilder::KEY_URL_ID] : null;
         $this->section = isset($urlDataArray[UrlDataBuilder::KEY_SECTION]) ? $urlDataArray[UrlDataBuilder::KEY_SECTION] : null;
         $this->sectionId = isset($urlDataArray[UrlDataBuilder::KEY_SECTION_ID]) ? $urlDataArray[UrlDataBuilder::KEY_SECTION_ID] : null;
-        $this->articleId = isset($urlDataArray[UrlDataBuilder::KEY_ARTICLE_ID]) ? $urlDataArray[UrlDataBuilder::KEY_ARTICLE_ID] : null;
+        $this->articleId = isset($urlDataArray[UrlDataBuilder::KEY_ARTICLE_ID]) ? $urlDataArray[UrlDataBuilder::KEY_ARTICLE_ID] : 0;
+        $this->status = isset($urlDataArray[UrlDataBuilder::KEY_STATUS]) ? $urlDataArray[UrlDataBuilder::KEY_STATUS] : null;
     }
 
     /**
@@ -165,5 +171,21 @@ class UrlData implements UrlDataInterface
     public function setArticleId(int $articleId)
     {
         $this->articleId = $articleId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus(string $status)
+    {
+        $this->status = $status;
     }
 }

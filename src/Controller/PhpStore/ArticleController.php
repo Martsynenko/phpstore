@@ -18,31 +18,30 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class ArticleController extends Controller
+class ArticleController extends AbstractController
 {
     /**
      * @Route("{articleUrl}", requirements={"articleUrl"="article/.+/"}, name="article")
-     * @param UrlData $urlData
      * @param DateFormatter $dateFormatter
      * @param PhpArticlesRepository $phpArticlesRepository
      * @param PhpArticlesCommentsRepository $phpArticlesCommentsRepository
      * @return Response
      */
     public function index(
-        UrlData $urlData,
         DateFormatter $dateFormatter,
         PhpArticlesRepository $phpArticlesRepository,
         PhpArticlesCommentsRepository $phpArticlesCommentsRepository
     )
     {
-        $articleId = $urlData->getArticleId();
-        if ($articleId) {
+        $articleId = $this->urlData->getArticleId();
+        $status = $this->urlData->getStatus();
+        if ($articleId && $status === PhpArticles::STATUS_PUBLISHED) {
             $article = $phpArticlesRepository->getFullArticleDataByArticleId($articleId);
             $article = array_shift($article);
             $textArticle = htmlspecialchars_decode($article[PhpArticlesRepository::COLUMN_TEXT]);
             $textArticle = htmlspecialchars_decode($textArticle);
             $article[PhpArticlesRepository::COLUMN_TEXT] = $textArticle;
-            $article['url'] = $urlData->getUrl();
+            $article['url'] = $this->urlData->getUrl();
 
             $comments = $phpArticlesCommentsRepository->getCommentsByArticleId($articleId);
             $comments = $dateFormatter->formatDateTimeForComments($comments);

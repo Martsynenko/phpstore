@@ -8,6 +8,7 @@
 
 namespace App\Services\UrlDataService\UrlDataBuilder\TypeUrlData;
 
+use App\Repository\PhpArticlesRepository;
 use App\Repository\PhpUrlsArticlesRepository;
 use App\Services\UrlDataService\UrlDataBuilder\UrlDataBuilder;
 use Symfony\Component\Validator\Constraints\Url;
@@ -49,6 +50,7 @@ class ArticleType implements TypeInterface
         if ($sectionData) {
             $sectionData = array_shift($sectionData);
             $urlDataArray[UrlDataBuilder::KEY_ARTICLE_ID] = $sectionData[PhpUrlsArticlesRepository::ENTITY_ARTICLE_ID];
+            $urlDataArray[UrlDataBuilder::KEY_STATUS] = $sectionData[PhpArticlesRepository::COLUMN_STATUS];
         }
 
         return $urlDataArray;

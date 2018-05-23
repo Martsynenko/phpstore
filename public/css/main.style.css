@@ -93,10 +93,20 @@ main {
 }
 
 pre {
+    margin: 10px 0;
     background-color: #f7f9ff85;
     padding: 20px;
     border: 1px solid #f0f0f1;
     border-radius: 2px;
+}
+
+pre.console {
+    margin: 10px 0;
+    background-color: #00000085;
+    padding: 20px;
+    border-radius: 2px;
+    color: #fff;
+    border-left: 3px solid black;
 }
 
 .notice-definition {
@@ -162,6 +172,7 @@ header .header-row .logo h2 {
 .link-back a {
     color: #909090;
     text-decoration: none;
+    font-weight: bold;
 }
 
 .link-back a:hover {
@@ -188,7 +199,6 @@ header .header-row .logo h2 {
 
 .home-article-item h2 {
     color: #5b7fa0;
-    line-height: 32px;
     margin-bottom: 6px;
     font-weight: bold;
     font-size: 28px;
@@ -327,6 +337,10 @@ footer p {
     line-height: 40px;
     font-size: 30px;
     font-weight: bold;
+}
+
+.article .article-main-content {
+    font-size: 16px;
 }
 
 .article .article-item-bread-crumb {

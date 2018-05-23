@@ -20,6 +20,7 @@ class UrlDataBuilder
     const KEY_SECTION = 'section';
     const KEY_SECTION_ID = 'section_id';
     const KEY_ARTICLE_ID = 'article_id';
+    const KEY_STATUS = 'status';
 
     const ADMIN_SUB_URL = '/wde-master/admin/';
     const HOME_URL = '/';

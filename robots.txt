@@ -1,0 +1,17 @@
+User-agent: GoogleBot
+Disallow: /wde-master/admin/*
+Disallow: /verification/*
+Disallow: /vendor/*
+
+User-agent: Yandex
+Disallow: /wde-master/admin/*
+Disallow: /verification/*
+Disallow: /vendor/*
+
+User-agent: bingbot
+Disallow: /wde-master/admin/*
+Disallow: /verification/*
+Disallow: /vendor/*
+
+Sitemap: https://phpstore.com.ua/sitemap.xml
+Host: https://phpstore.com.ua

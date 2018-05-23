@@ -6,9 +6,6 @@
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
     /*GENERAL*/
-    pre {
-        font-size: 12px;
-    }
 
     /* HEADER */
     header .header-row {
@@ -43,7 +40,7 @@
 
     /* PAGE ARTICLE */
     .link-back {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .article h1 {
@@ -55,10 +52,6 @@
         font-size: 14px;
     }
 
-    .article p {
-        font-size: 15px;
-    }
-
     .title-comments h6 {
         font-size: 18px;
         padding-top: 6px;
@@ -66,6 +59,7 @@
 
     .title-comments button {
         font-size: 12px;
+        margin-top: 6px;
     }
 
     .comments-content .comments-content-item {
@@ -73,11 +67,11 @@
     }
 
     .comments-content .comments-content-item img {
-        width: 35px;
+        width: 40px;
     }
 
     .comments-content .comments-content-item p {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .comments-content .btn-comment-load-more button {
@@ -86,11 +80,8 @@
         padding-top: 4px;
     }
 
-    .title-comments .new-comment form {
-        padding: 14px;
-    }
-
-    .title-comments .new-comment form input[type='text'] {
+    .title-comments .new-comment form input[type='text'],
+    .title-comments .new-comment form input[type='email'] {
         width: 100%;
         font-size: 12px;
     }
@@ -134,8 +125,8 @@
     }
 
     .home-article-item h2 {
-        font-size: 18px;
-        line-height: 24px;
+        font-size: 20px;
+        line-height: 28px;
     }
 
     .home-article-item p {
@@ -168,13 +159,13 @@
         line-height: 30px;
     }
 
-    .article p {
-        font-size: 14px;
-    }
-
     .article .article-item-bread-crumb {
         font-size: 12px;
         padding: 6px 0;
+    }
+
+    .article .article-main-content {
+        font-size: 14px;
     }
 
     .title-comments h6 {
@@ -217,10 +208,6 @@
     .title-comments .new-comment form textarea {
         font-size: 12px;
         width: 100%;
-    }
-
-    .title-comments .new-comment form {
-        padding: 14px;
     }
 
     .title-comments .new-comment form input[type='submit'] {
@@ -267,7 +254,7 @@
 
     .home-article-item h2 {
         font-size: 16px;
-        line-height: 20px;
+        line-height: 24px;
     }
 
     .home-article-item p {
@@ -333,10 +320,6 @@
        line-height: 28px;
    }
 
-   .article p {
-       font-size: 14px;
-   }
-
     .article .article-item-bread-crumb {
         font-size: 12px;
         padding: 6px 0;
@@ -345,6 +328,14 @@
     .title-comments h6 {
         font-size: 16px;
         float: none;
+    }
+
+    .article .article-main-content {
+        font-size: 12px;
+    }
+
+    .article .article-main-content span {
+        font-size: 14px;
     }
 
     .title-comments .block-btn-new-comment {

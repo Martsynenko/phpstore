@@ -2,15 +2,15 @@
 
 namespace App\Repository;
 
-use App\Entity\UserVisits;
+use App\Entity\PhpUserVisits;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class UserVisitsRepository extends ServiceEntityRepository
+class PhpUserVisitsRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, UserVisits::class);
+        parent::__construct($registry, PhpUserVisits::class);
     }
 
     /**
@@ -33,36 +33,54 @@ class UserVisitsRepository extends ServiceEntityRepository
     /**
      * @param $clientIp
      * @param $date
+     * @param $articleId
      * @return bool
      */
-    public function checkUserVisit($clientIp, $date)
+    public function checkUserVisit($clientIp, $date, $articleId)
     {
-        $stmt = 'SELECT `id` FROM `user_visits` uv 
-                 WHERE uv.ip = :clientIp AND uv.date = :date';
+        $stmt = 'SELECT `id` FROM `php_user_visits` uv 
+                 WHERE uv.ip = :clientIp 
+                 AND uv.date = :date
+                 AND uv.article_id = :articleId';
 
         $params = [
             'clientIp' => $clientIp,
-            'date' => $date
+            'date' => $date,
+            'articleId' => $articleId
         ];
 
         $id = $this->getEntityManager()->getConnection()->executeQuery($stmt, $params)->fetchColumn();
 
         if ($id) {
-            return true;
+            return $id;
         }
 
         return false;
     }
 
-    public function insertUserVisit($clientIp, $date)
+    /**
+     * @param $clientIp
+     * @param $date
+     * @param $articleId
+     */
+    public function insertUserVisit($clientIp, $date, $articleId)
     {
-        $stmt = 'INSERT INTO `user_visits` (`id`, `ip`, `date`) VALUES (NULL, :clientIp, :date)';
+        $stmt = 'INSERT INTO `php_user_visits` (`id`, `ip`, `date`, `article_id`)
+                 VALUES (NULL, :clientIp, :date, :articleId)';
 
         $params = [
             'clientIp' => $clientIp,
-            'date' => $date
+            'date' => $date,
+            'articleId' => $articleId
         ];
 
         $this->getEntityManager()->getConnection()->executeQuery($stmt, $params);
+    }
+
+    public function getLastUserVisitId()
+    {
+        $stmt = 'SELECT MAC(`id`) FROM `user_visits`';
+
+        return $this->getEntityManager()->getConnection()->executeQuery($stmt);
     }
 }

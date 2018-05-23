@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Repository\UserVisitsRepository;
+use App\Repository\PhpUserVisitsRepository;
 use App\ValidationHelper\AuthValidationHelper;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -16,13 +16,13 @@ class IndexController extends Controller
      * @Route("wde-master/admin/index/", name="admin-home")
      * @param SessionInterface $session
      * @param AuthValidationHelper $authValidationHelper
-     * @param UserVisitsRepository $userVisitRepository
+     * @param PhpUserVisitsRepository $userVisitRepository
      * @return Response
      */
     public function index(
         SessionInterface $session,
         AuthValidationHelper $authValidationHelper,
-        UserVisitsRepository $userVisitRepository
+        PhpUserVisitsRepository $userVisitRepository
     )
     {
         $sessionKey = $session->get(LoginController::SESSION_SESSION_KEY);

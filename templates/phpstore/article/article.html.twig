@@ -39,7 +39,9 @@
                             <i class="fas fa-eye"></i><span>{{ article.visits }}</span>
                             <i class="far fa-clock"></i><span>{{ article.date }}</span>
                         </div>
-                        {{ article.text|raw }}
+                        <div class="article-main-content">
+                            {{ article.text|raw }}
+                        </div>
                     </div>
                 </div>
             </div>

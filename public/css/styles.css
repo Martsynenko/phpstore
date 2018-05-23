@@ -60,6 +60,20 @@ body {
 }
 
 /* GENERAL STYLES */
+.btn-add-element {
+    margin-top: 10px;
+    background-color: #7291a7;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+.btn-add-element .fa-plus {
+    margin-right: 5px;
+}
+
 .max-size-text {
     font-size: 12px;
     margin-top: -8px;

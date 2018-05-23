@@ -8,7 +8,6 @@
 
 namespace App\Controller\PhpStore;
 
-use App\Services\UrlDataService\UrlData;
 use App\Services\VisitService\VisitService;
 use App\Repository\PhpArticlesRepository;
 use App\Services\CounterService\CounterService;
@@ -20,16 +19,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class IndexController extends Controller
+class IndexController extends AbstractController
 {
     const HOME_ARTICLES_LIMIT = 5;
 
     /**
-     * @Route("/{page}", requirements={"page"="\w+"}, name="home")
-     * @param string $page
+     * @Route("/", name="home")
      * @param Request $request
-     * @param UrlData $urlData
-     * @param VisitService $visitService
      * @param CounterService $counterService
      * @param ArticleNavigationService $articleNavigationService
      * @param ArticlePaginationService $articlePaginationService
@@ -37,19 +33,17 @@ class IndexController extends Controller
      * @return Response
      */
     public function index(
-        $page = 'page1',
         Request $request,
-        UrlData $urlData,
-        VisitService $visitService,
         CounterService $counterService,
         ArticleNavigationService $articleNavigationService,
         ArticlePaginationService $articlePaginationService,
         PhpArticlesRepository $phpArticlesRepository
     )
     {
-        $visitService->updateVisit($urlData);
-
-        $page = substr($page, 4);
+        $page = $request->get('page');
+        if (!$page) {
+            $page = 1;
+        }
         $countBreadcrumbArticles = $counterService->getBreadcrumbCountArticles();
 
         $routeName = $request->get('_route');
