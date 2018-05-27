@@ -99,6 +99,10 @@
     footer p {
         font-size: 13px;
     }
+
+    .comments-content .notice-no-comment {
+        font-size: 14px;
+    }
 }
 
 /* Small Devices, Tablets */
@@ -212,6 +216,10 @@
 
     .title-comments .new-comment form input[type='submit'] {
         font-size: 12px;
+    }
+
+    .comments-content .notice-no-comment {
+        font-size: 14px;
     }
 }
 
@@ -377,6 +385,10 @@
     }
 
     .comments-content .btn-primary {
+        font-size: 12px;
+    }
+
+    .comments-content .notice-no-comment {
         font-size: 12px;
     }
 }

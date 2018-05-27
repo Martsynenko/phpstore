@@ -495,7 +495,7 @@ footer p {
     color: #4d4d4d;
 }
 
-.comments-content .btn-primary {
+.btn-load-more-comments {
     border: none;
     background-color: rgb(51, 105, 136);
     width: 100%;
@@ -509,7 +509,7 @@ footer p {
     margin-top: 10px;
 }
 
-.comments-content .btn-primary:hover {
+.btn-load-more-comments:hover {
     background-color: rgb(43, 85, 113);
     cursor: pointer;
 }

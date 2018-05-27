@@ -30,10 +30,41 @@ $('.btn-new-comment').click(function(){
 });
 
 $('.btn-load-more-comments').click(function(){
-    $('.btn-load-more-comments').addClass('running');
-    // $.ajax({
-    //
-    // });
+    var btnLoadComments = $('.btn-load-more-comments');
+    if (btnLoadComments.hasClass('running')) {
+        return false;
+    }
+    btnLoadComments.addClass('running');
+    var countComments = 'countComments=' + $('.comments-content-item').length;
+    var articleId = 'articleId=' + $('.current-article-id').val();
+    $.ajax({
+        type: 'POST',
+        dataType: 'html',
+        data: countComments +
+            '&' + articleId,
+        url: '/action/article/load-comments/',
+        success: function(data) {
+            btnLoadComments.removeClass('running');
+            var objData = $.parseJSON(data);
+            if (objData.status == 'success') {
+                $.each(objData.comments, function(key, item){
+                    $('.comments-content').append('<div class="comments-content-item">\n' +
+                        '<img src="/public/img/no-avatar.png" alt="no-avatar"/>\n' +
+                        '<span class="comment-title-user-name">' + item.name + '</span>\n' +
+                        '<i class="fas fa-ellipsis-h"></i>\n' +
+                        '<span class="comment-time">' + item.date + '</span>\n' +
+                        '<p>' + item.comment + '</p>\n' +
+                        '</div>');
+                });
+                if (!objData.showBtnLoadComments) {
+                    btnLoadComments.css('display', 'none');
+                }
+            }
+        },
+        error: function () {
+            alert('Что то пошло не так!!');
+        }
+    });
 });
 
 $('#trumbowyg-demo').trumbowyg({
@@ -41,8 +72,14 @@ $('#trumbowyg-demo').trumbowyg({
 });
 
 $('.btn-send-comment').click(function(){
-    loadingOverlayStart();
+    $('.notice-new-comment-success').css({
+        'display' : 'none'
+    });
+    $('.notice-new-comment-error').css({
+        'display' : 'none'
+    });
     if (isValidName && isValidEmail && isValidText) {
+        loadingOverlayStart();
         var articleId = 'articleId=' + $('input.hidden-article-id').val();
         var url = 'url=' + $('input.hidden-current-url').val();
         var userName = 'userName=' + $('input.comment-user-name').val();
@@ -61,21 +98,29 @@ $('.btn-send-comment').click(function(){
                 var objData = $.parseJSON(data);
                 loadingOverlayStop();
                 if (objData.status == 'success') {
-                    console.log(objData.message);
                     $('.notice-new-comment-success p').text(objData.message);
                     $('.notice-new-comment-success').css({
                         'display' : 'block'
                     });
-                    $('.comments-content').append('<div class="comments-content-item">\n' +
-                        '<img src="{{ asset(\'img/no-avatar.png\') }}" alt="1"/>\n' +
-                        '<span class="comment-title-user-name">' + userName + '</span>\n' +
+                    $('.comments-content').prepend('<div class="comments-content-item">\n' +
+                        '<img src="/public/img/no-avatar.png" alt="no-avatar"/>\n' +
+                        '<span class="comment-title-user-name">' + objData.data.name + '</span>\n' +
                         '<i class="fas fa-ellipsis-h"></i>\n' +
-                        '<span class="comment-time">2000</span>\n' +
-                        '<p>' + commentText + '</p>\n' +
+                        '<span class="comment-time">' + objData.data.date + '</span>\n' +
+                        '<p>' + objData.data.comment + '</p>\n' +
                         '</div>');
+                    var currentCount = $('.title-comments span.count').text();
+                    currentCount = +currentCount + 1;
+                    $('.title-comments span.count').text(currentCount);
                 }
                 if (objData.status == 'error') {
+                    $('.notice-new-comment-error p').text(objData.message);
                     $('.notice-new-comment-error').css({
+                        'display' : 'block'
+                    });
+                }
+                if (objData.status == 'verification') {
+                    $('.notice-new-comment-success').css({
                         'display' : 'block'
                     });
                 }
@@ -115,11 +160,11 @@ $('.btn-send-comment').click(function(){
     return false;
 });
 
-$('.comment-user-name').focusout(function(){
+$('.comment-user-name').keyup(function(){
     isValidName = true;
     var errorInputName = $('.form-error-message-name');
 
-    var regexp = /^[а-яА-Я]|[a-zA-Z]$/;
+    var regexp = /^([а-яА-Я]|[a-zA-Z])*$/;
 
     var emptyValue = 'Поле не может быть пустым';
     var errorName = 'Введите настоящее имя';
@@ -166,7 +211,7 @@ $('.comment-user-name').focusout(function(){
     isValid = isValidName;
 });
 
-$('.comment-user-email').focusout(function(){
+$('.comment-user-email').keyup(function(){
     isValidEmail = true;
     var errorInputEmail = $('.form-error-message-email');
 
@@ -217,7 +262,7 @@ $('.comment-user-email').focusout(function(){
     isValid = isValidEmail;
 });
 
-$('.comment-text').focusout(function(){
+$('.comment-text').keyup(function(){
     isValidText = true;
     var errorInputText = $('.form-error-message-text');
 

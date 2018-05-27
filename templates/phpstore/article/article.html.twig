@@ -41,6 +41,7 @@
                         </div>
                         <div class="article-main-content">
                             {{ article.text|raw }}
+                            <input type="hidden" name="articleId" class="current-article-id" value="{{ article.id }}"/>
                         </div>
                     </div>
                 </div>
@@ -52,25 +53,23 @@
                         <div class="title-comments">
                             <div class="row">
                                 <div class="col-md-6 col">
-                                    <h6><span class="mobile-device-hidden title">Комментарии </span><i class="far fa-comments"></i><span class="count">{{ comments|length }}</span></h6>
+                                    <h6><span class="mobile-device-hidden title">Комментарии </span><i class="far fa-comments"></i><span class="count">{{ countComments }}</span></h6>
                                 </div>
                                 <div class="col-md-6 col">
                                     <button class="btn-new-comment" value="0">Оставить<span class="mobile-device-hidden"> комментарий</span></button>
-                                    {#<i class="fa fa-angle-up arrow-down"></i>#}
                                 </div>
                             </div>
-                            {#<div class="block-btn-new-comment">#}
-                                {#<button class="btn-new-comment" value="0">Оставить комментарий</button>#}
-                                {#<i class="fa fa-angle-up arrow-down"></i>#}
-                            {#</div>#}
                             <div class="clearfix"></div>
                             <div class="new-comment">
                                 <div class="notice-new-comment-success">
-                                    <p></p>
+                                    <p>Ваш комментарий будет опубликован после подтверждения email адреса.
+                                        На Ваш почтовый адрес было отправлено письмо с подтверждением.
+                                        Все что Вам нужно сделать это перейти по ссылке в письме.<br>
+                                        <span>Данное действие необходимо проделать лишь один раз! Ваш email адрес не будет виден на сайте!</span></p>
                                 </div>
                                 <div class="notice-new-comment-error">
                                     <i class="fas fa-exclamation-circle"></i>
-                                    <p>xм... чтото пошло не так. Возможно вы ввели некорректный email или ваш аккаунт был заблокирован!</p>
+                                    <p></p>
                                 </div>
                                 <form method="post">
                                     <input type="hidden" class="hidden-current-url" name="currentUrl" value="{{ article.url }}"/>
@@ -104,23 +103,25 @@
             <div class="row">
                 <div class="col-md-9">
                     <div class="comments-content">
-                        {#<p class="notice-no-comment">У этой статьи еще нет комментариев! Будьте первым и оставьте свой отзыв или задайте свой вопрос!</p>#}
+                        {% if countComments == 0 %}
+                            <p class="notice-no-comment">У этой статьи еще нет комментариев! Будьте первым и оставьте свой отзыв или задайте свой вопрос!</p>
+                        {% endif %}
                         {% for comment in comments %}
                         <div class="comments-content-item">
-                            <img src="{{ asset('img/no-avatar.png') }}" alt="1"/>
+                            <img src="{{ asset('img/no-avatar.png') }}" alt="no-avatar"/>
                             <span class="comment-title-user-name">{{ comment.name }}</span>
                             <i class="fas fa-ellipsis-h"></i>
                             <span class="comment-time">{{ comment.date }}</span>
                             <p>{{ comment.comment }}</p>
                         </div>
                         {% endfor %}
-                        {% if comments|length > 5 %}
+                    </div>
+                    {% if showBtnLoadComments %}
                         <div class="btn btn-primary ld-over-inverse btn-load-more-comments">
                             Загрузить еще
                             <div class="ld ld-ring ld-spin"></div>
                         </div>
-                        {% endif %}
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

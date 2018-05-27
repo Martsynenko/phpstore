@@ -8,6 +8,7 @@
 
 namespace App\Services\CounterService;
 
+use App\Repository\PhpArticlesCommentsRepository;
 use App\Repository\PhpArticlesRepository;
 
 class CounterService
@@ -19,11 +20,16 @@ class CounterService
     /** @var  PhpArticlesRepository $phpArticlesRepository */
     private $phpArticlesRepository;
 
+    /** @var  PhpArticlesCommentsRepository $phpArticlesCommentsRepository */
+    private $phpArticlesCommentsRepository;
+
     public function __construct(
-        PhpArticlesRepository $phpArticlesRepository
+        PhpArticlesRepository $phpArticlesRepository,
+        PhpArticlesCommentsRepository $phpArticlesCommentsRepository
     )
     {
         $this->phpArticlesRepository = $phpArticlesRepository;
+        $this->phpArticlesCommentsRepository = $phpArticlesCommentsRepository;
     }
 
     /**
@@ -54,5 +60,16 @@ class CounterService
         }
 
         return [self::KEY_COUNT => $countArticles, self::KEY_TITLE => $title];
+    }
+
+    /**
+     * @param $articleId
+     * @return array
+     */
+    public function getCountArticleComments($articleId)
+    {
+        $count = $this->phpArticlesCommentsRepository->getCountCommentsByArticleId($articleId);
+
+        return $count;
     }
 }

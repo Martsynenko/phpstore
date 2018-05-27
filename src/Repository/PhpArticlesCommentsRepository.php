@@ -56,11 +56,10 @@ class PhpArticlesCommentsRepository extends ServiceEntityRepository
      * @param int $userId
      * @param string $comment
      * @param int $articleId
+     * @param $date
      */
-    public function insertArticleCommentByUserId($userId, $comment, $articleId)
+    public function insertArticleCommentByUserId($userId, $comment, $articleId, $date)
     {
-        $date = date('Y-m-d H:i:s');
-
         $stmt = 'INSERT INTO `php_articles_comments` (`id`, `comment`, `date`, `article_id`, `comment_user_id`)
             VALUES (NULL, :comment, :date, :articleId, :userId);';
 
@@ -74,19 +73,42 @@ class PhpArticlesCommentsRepository extends ServiceEntityRepository
         $this->_em->getConnection()->executeQuery($stmt, $params);
     }
 
-    public function getCommentsByArticleId($articleId)
+    public function getCommentsByArticleId($articleId, $offset = 0)
     {
         $stmt = 'SELECT pcu.name, pac.date, pac.comment FROM php_articles_comments pac
                   JOIN php_comments_users pcu ON pac.comment_user_id = pcu.id
                   WHERE pac.article_id = :articleId AND pcu.verification_status = :status
-                 ORDER BY pac.date DESC';
+                 ORDER BY pac.date DESC
+                 LIMIT :offset, 5';
+
+        $params = [
+            'articleId' => $articleId,
+            'status' => PhpCommentsUsersRepository::VERIFICATION_STATUS_YES,
+            'offset' => $offset
+        ];
+
+        $types = [
+            'articleId' => \PDO::PARAM_INT,
+            'status' => \PDO::PARAM_STR,
+            'offset' => \PDO::PARAM_INT
+        ];
+
+        return $this->_em->getConnection()->executeQuery($stmt, $params, $types)->fetchAll();
+    }
+
+    public function getCountCommentsByArticleId($articleId)
+    {
+        $stmt = 'SELECT COUNT(pac.`id`) as `count` FROM `php_articles_comments` pac
+                    JOIN php_comments_users pcu ON pac.comment_user_id = pcu.id
+                    AND pcu.verification_status = :status
+                 WHERE pac.article_id = :articleId';
 
         $params = [
             'articleId' => $articleId,
             'status' => PhpCommentsUsersRepository::VERIFICATION_STATUS_YES
         ];
 
-        return $this->_em->getConnection()->executeQuery($stmt, $params)->fetchAll();
+        return $this->_em->getConnection()->executeQuery($stmt, $params)->fetchColumn();
     }
 
 }
