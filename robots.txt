@@ -13,5 +13,5 @@ Disallow: /wde-master/admin/*
 Disallow: /verification/*
 Disallow: /vendor/*
 
-Sitemap: https://phpstore.com.ua/sitemap.xml
-Host: https://phpstore.com.ua
+Sitemap: https://www.phpstore.com.ua/sitemap.xml
+Host: https://www.phpstore.com.ua
