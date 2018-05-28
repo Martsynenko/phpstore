@@ -33,26 +33,23 @@ class PhpUserVisitsRepository extends ServiceEntityRepository
     /**
      * @param $clientIp
      * @param $date
-     * @param $articleId
      * @return bool
      */
-    public function checkUserVisit($clientIp, $date, $articleId)
+    public function checkUserVisit($clientIp, $date)
     {
         $stmt = 'SELECT `id` FROM `php_user_visits` uv 
                  WHERE uv.ip = :clientIp 
-                 AND uv.date = :date
-                 AND uv.article_id = :articleId';
+                 AND uv.date = :date';
 
         $params = [
             'clientIp' => $clientIp,
-            'date' => $date,
-            'articleId' => $articleId
+            'date' => $date
         ];
 
         $id = $this->getEntityManager()->getConnection()->executeQuery($stmt, $params)->fetchColumn();
 
         if ($id) {
-            return $id;
+            return true;
         }
 
         return false;
@@ -61,17 +58,15 @@ class PhpUserVisitsRepository extends ServiceEntityRepository
     /**
      * @param $clientIp
      * @param $date
-     * @param $articleId
      */
-    public function insertUserVisit($clientIp, $date, $articleId)
+    public function insertUserVisit($clientIp, $date)
     {
-        $stmt = 'INSERT INTO `php_user_visits` (`id`, `ip`, `date`, `article_id`)
-                 VALUES (NULL, :clientIp, :date, :articleId)';
+        $stmt = 'INSERT INTO `php_user_visits` (`id`, `ip`, `date`)
+                 VALUES (NULL, :clientIp, :date)';
 
         $params = [
             'clientIp' => $clientIp,
-            'date' => $date,
-            'articleId' => $articleId
+            'date' => $date
         ];
 
         $this->getEntityManager()->getConnection()->executeQuery($stmt, $params);

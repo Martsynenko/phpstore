@@ -38,34 +38,24 @@ class VisitService
      */
     public function updateVisit(UrlData $urlData)
     {
-        $isVisited = $this->updateSiteVisit($urlData->getRequest()->getClientIp(), $urlData->getArticleId());
+        $this->updateSiteVisit($urlData->getRequest()->getClientIp());
 
-        if (!$isVisited) {
-            $typeService = $this->defineTypeService($urlData->getSection());
-            if ($typeService instanceof VisitTypeInterface) {
-                $typeService->updateVisit($urlData);
-            }
+        $typeService = $this->defineTypeService($urlData->getSection());
+        if ($typeService instanceof VisitTypeInterface) {
+            $typeService->updateVisit($urlData);
         }
     }
 
     /**
      * @param string $clientIp
-     * @param $articleId
-     * @return bool
      */
-    private function updateSiteVisit($clientIp, $articleId)
+    private function updateSiteVisit($clientIp)
     {
-        $articleId = isset($articleId) ? $articleId : 0;
-
         $date = date('Y-m-d');
 
-        if ($this->userVisitsRepository->checkUserVisit($clientIp, $date, $articleId)) {
-            return true;
+        if (!$this->userVisitsRepository->checkUserVisit($clientIp, $date)) {
+            $this->userVisitsRepository->insertUserVisit($clientIp, $date);
         }
-
-        $this->userVisitsRepository->insertUserVisit($clientIp, $date, $articleId);
-
-        return false;
     }
 
     /**

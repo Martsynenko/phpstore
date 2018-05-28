@@ -9,6 +9,7 @@
 namespace App\Services\VisitService\VisitTypes;
 
 use App\Repository\PhpArticlesVisitsRepository;
+use App\Repository\PhpUserArticleVisitsRepository;
 use App\Services\UrlDataService\UrlData;
 
 class ArticleVisitType implements VisitTypeInterface
@@ -18,10 +19,15 @@ class ArticleVisitType implements VisitTypeInterface
     /** @var  PhpArticlesVisitsRepository $phpArticlesVisitsRepository */
     private $phpArticlesVisitsRepository;
 
+    /** @var  PhpUserArticleVisitsRepository $phpUserArticleVisitsRepository */
+    private $phpUserArticleVisitsRepository;
+
     public function __construct(
-        PhpArticlesVisitsRepository $phpArticlesVisitsRepository
+        PhpArticlesVisitsRepository $phpArticlesVisitsRepository,
+        PhpUserArticleVisitsRepository $phpUserArticleVisitsRepository
     ) {
         $this->phpArticlesVisitsRepository = $phpArticlesVisitsRepository;
+        $this->phpUserArticleVisitsRepository = $phpUserArticleVisitsRepository;
     }
 
     /**
@@ -42,6 +48,29 @@ class ArticleVisitType implements VisitTypeInterface
      */
     public function updateVisit(UrlData $urlData)
     {
-        $this->phpArticlesVisitsRepository->updateVisitArticleByArticleId($urlData->getUrlId());
+        $ip = $urlData->getRequest()->getClientIp();
+        $articleId = $urlData->getArticleId();
+
+        if (!$this->checkArticleUserVisit($ip, $articleId)) {
+            $this->phpArticlesVisitsRepository->updateVisitArticleByArticleId($urlData->getArticleId());
+        }
+    }
+
+    /**
+     * @param string $ip
+     * @param int $articleId
+     * @return bool
+     */
+    private function checkArticleUserVisit($ip, $articleId)
+    {
+        $id = $this->phpUserArticleVisitsRepository->getIdUserIpArticleId($ip, $articleId);
+
+        if ($id) {
+            return true;
+        }
+
+        $this->phpUserArticleVisitsRepository->setUserVisit($ip, $articleId);
+
+        return false;
     }
 }

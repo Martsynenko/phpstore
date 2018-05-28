@@ -1,8 +1,10 @@
+# BEGIN PhpStore
 <ifModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule ^$ public/ [L]
     RewriteRule (.*) public/$1
 </ifModule>
+# END PhpStore
 
 #RewriteEngine On
 #RewriteCond %{HTTPS} !on
